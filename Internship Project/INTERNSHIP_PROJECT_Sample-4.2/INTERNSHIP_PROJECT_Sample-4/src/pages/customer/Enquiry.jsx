@@ -741,7 +741,7 @@ export default function EnquiryPortal() {
                   <Button 
                     className="flex-1" 
                     icon={ExternalLink}
-                    onClick={() => {
+                    onClick={async () => {
                       let pId = selectedTicket.proposalId;
                       if (!pId && selectedTicket.chatHistory) {
                         const msg = selectedTicket.chatHistory.find(m => m.text.includes('custom proposal ('));
@@ -750,11 +750,25 @@ export default function EnquiryPortal() {
                           if (match) pId = match[1];
                         }
                       }
+                      
+                      if (!pId) {
+                        try {
+                          showToast('Locating latest proposal...', 'info');
+                          const res = await api.get('/proposals');
+                          const propsList = res.data.data?.proposals || res.data.data || [];
+                          if (propsList.length > 0) {
+                            propsList.sort((a, b) => b.id - a.id);
+                            pId = propsList[0].id;
+                          }
+                        } catch (e) {
+                          console.error("Fallback proposal fetch failed", e);
+                        }
+                      }
+
                       if (pId) {
                         downloadProposalPDF(pId);
                       } else {
-                        setSelectedTicket(null);
-                        navigate('/customer/store');
+                        showToast('No proposal found to download.', 'error');
                       }
                     }}
                   >
