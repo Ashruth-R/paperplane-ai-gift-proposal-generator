@@ -512,16 +512,18 @@ export default function ProposalDetails() {
             <div className="flex flex-col gap-4 h-[300px] bg-surface-900/50 border border-surface-700/50 rounded-xl p-4 shadow-inner">
               <div className="flex-1 overflow-y-auto flex flex-col gap-3 pr-2 no-scrollbar">
                 {(proposal.chatHistory || []).map((msg, i) => {
-                  const isMe = msg.sender === activeRole;
+                  const textContent = msg.text || (msg.message && msg.message.text) || msg.message || '';
+                  const msgSender = msg.sender || (msg.message && msg.message.sender) || 'customer';
+                  const isMe = msgSender === activeRole;
                   return (
                     <div key={i} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}>
                       <span className="text-[10px] text-surface-500 font-bold uppercase tracking-wider mb-1">
-                        {isMe ? 'You' : (msg.sender === 'admin' ? 'Coordinator' : 'Customer')}
+                        {isMe ? 'You' : (msgSender === 'admin' ? 'Coordinator' : 'Customer')}
                       </span>
                       <div className={`px-3 py-2 rounded-xl text-sm max-w-[85%] shadow-md ${isMe ? 'bg-brand-600/80 text-white' : 'bg-surface-800 border border-surface-700/50 text-surface-200'}`}>
-                        {msg.text}
+                        {textContent}
                       </div>
-                      <span className="text-[9px] text-surface-600 mt-1">{formatDate(msg.timestamp, { hour: '2-digit', minute: '2-digit' })}</span>
+                      <span className="text-[9px] text-surface-600 mt-1">{formatDate(msg.timestamp || new Date().toISOString(), { hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
                   );
                 })}

@@ -26,6 +26,7 @@ export default function AdminEnquiries() {
   const [assignedTo, setAssignedTo] = useState('');
   const [savingId, setSavingId]     = useState(null);
   const [chatMessage, setChatMessage] = useState('');
+  const activeTicket = selectedId ? tickets.find(t => t.id === selectedId) || null : null;
 
   const filtered = (tickets || []).filter(t => {
     const matchSearch = !search ||
@@ -403,16 +404,21 @@ export default function AdminEnquiries() {
                     </p>
                     <div className="flex flex-col gap-4 h-[300px] bg-slate-50 border border-slate-200 rounded-xl p-4 shadow-inner">
                       <div className="flex-1 overflow-y-auto flex flex-col gap-3 pr-2">
-                        {(selected.chatHistory || []).map((msg, i) => (
-                          <div key={i} className={`flex flex-col ${msg.sender === 'admin' ? 'items-end' : 'items-start'}`}>
-                            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">{msg.sender === 'admin' ? 'You' : 'Customer'}</span>
-                            <div className={`px-3 py-2 rounded-xl text-sm max-w-[85%] shadow-sm ${msg.sender === 'admin' ? 'bg-brand-600 text-[#ffffff]' : 'bg-[#ffffff] border border-slate-200 text-slate-800'}`}>
-                              {msg.text}
+                        {(activeTicket.chatHistory || []).map((msg, i) => {
+                          const textContent = msg.text || (msg.message && msg.message.text) || msg.message || '';
+                          const msgSender = msg.sender || (msg.message && msg.message.sender) || 'customer';
+                          const isAdmin = msgSender === 'admin';
+                          return (
+                            <div key={i} className={`flex flex-col ${isAdmin ? 'items-end' : 'items-start'}`}>
+                              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">{isAdmin ? 'You' : 'Customer'}</span>
+                              <div className={`px-3 py-2 rounded-xl text-sm max-w-[85%] shadow-sm ${isAdmin ? 'bg-brand-600 text-[#ffffff]' : 'bg-[#ffffff] border border-slate-200 text-slate-800'}`}>
+                                {textContent}
+                              </div>
+                              <span className="text-[9px] text-slate-650 mt-1">{formatDate(msg.timestamp || new Date().toISOString(), { hour: '2-digit', minute: '2-digit' })}</span>
                             </div>
-                            <span className="text-[9px] text-slate-650 mt-1">{formatDate(msg.timestamp, { hour: '2-digit', minute: '2-digit' })}</span>
-                          </div>
-                        ))}
-                        {(!selected.chatHistory || selected.chatHistory.length === 0) && (
+                          );
+                        })}
+                        {(!activeTicket.chatHistory || activeTicket.chatHistory.length === 0) && (
                           <p className="text-center text-slate-500 text-xs mt-10">No messages yet. Send a message to start the conversation.</p>
                         )}
                       </div>

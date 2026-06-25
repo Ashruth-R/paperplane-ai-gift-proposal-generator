@@ -40,6 +40,7 @@ export default function EnquiryPortal() {
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
   const [selectedTicket, setSelectedTicket] = useState(null);
+  const activeTicket = selectedTicket ? tickets.find(t => t.id === selectedTicket.id) || selectedTicket : null;
   const [chatMessage, setChatMessage] = useState('');
   const chatEndRef = useRef(null);
 
@@ -663,7 +664,7 @@ export default function EnquiryPortal() {
                         Enquiry Details
                       </h4>
                       <div className="bg-surface-800/40 border border-surface-700/50 rounded-xl p-4 text-xs text-surface-300 leading-relaxed whitespace-pre-line">
-                        {selectedTicket.subject} — Our corporate coordinators are analyzing your request. We will publish specifications shortly.
+                        {activeTicket.subject} — Our corporate coordinators are analyzing your request. We will publish specifications shortly.
                       </div>
                     </div>
                   );
@@ -680,7 +681,7 @@ export default function EnquiryPortal() {
                     {/* Vertical line indicator */}
                     <div className="absolute left-2.5 top-2.5 bottom-2.5 w-[2px] bg-surface-700" />
 
-                    {getTimelineSteps(selectedTicket).map((step, idx) => {
+                    {getTimelineSteps(activeTicket).map((step, idx) => {
                       const isComp = step.status === 'completed';
                       const isActive = step.status === 'active';
                       return (
@@ -717,16 +718,22 @@ export default function EnquiryPortal() {
                   </p>
                   <div className="flex flex-col gap-4 h-[300px] bg-slate-950/40 border border-white/[0.03] rounded-xl p-4 shadow-inner">
                     <div className="flex-1 overflow-y-auto flex flex-col gap-3 pr-2 no-scrollbar">
-                      {(selectedTicket.chatHistory || []).map((msg, i) => (
-                        <div key={i} className={`flex flex-col ${msg.sender === 'customer' ? 'items-end' : 'items-start'}`}>
-                          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">{msg.sender === 'customer' ? 'You' : 'Coordinator'}</span>
-                          <div className={`px-3 py-2 rounded-xl text-sm max-w-[85%] shadow-md ${msg.sender === 'customer' ? 'bg-brand-600/80 text-white' : 'bg-slate-800 border border-white/5 text-slate-200'}`}>
-                            {msg.text}
+                      {(activeTicket.chatHistory || []).map((msg, i) => {
+                        // Extract text robustly depending on backend vs frontend format
+                        const textContent = msg.text || (msg.message && msg.message.text) || msg.message || '';
+                        const msgSender = msg.sender || (msg.message && msg.message.sender) || 'admin';
+                        const isCustomer = msgSender === 'customer';
+                        return (
+                          <div key={i} className={`flex flex-col ${isCustomer ? 'items-end' : 'items-start'}`}>
+                            <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">{isCustomer ? 'You' : 'Coordinator'}</span>
+                            <div className={`px-3 py-2 rounded-xl text-sm max-w-[85%] shadow-md ${isCustomer ? 'bg-brand-600/80 text-white' : 'bg-slate-800 border border-white/5 text-slate-200'}`}>
+                              {textContent}
+                            </div>
+                            <span className="text-[9px] text-slate-600 mt-1">{formatDate(msg.timestamp || new Date().toISOString(), { hour: '2-digit', minute: '2-digit' })}</span>
                           </div>
-                          <span className="text-[9px] text-slate-600 mt-1">{formatDate(msg.timestamp, { hour: '2-digit', minute: '2-digit' })}</span>
-                        </div>
-                      ))}
-                      {(!selectedTicket.chatHistory || selectedTicket.chatHistory.length === 0) && (
+                        );
+                      })}
+                      {(!activeTicket.chatHistory || activeTicket.chatHistory.length === 0) && (
                         <p className="text-center text-slate-500 text-xs mt-10">No messages yet. Send a message to start the conversation.</p>
                       )}
                       <div ref={chatEndRef} />
