@@ -150,14 +150,17 @@ export function AppProvider({ children }) {
 
   const loginUser = useCallback(async (credentials) => {
     try {
-        const res = await api.post('/auth/login', credentials);
+        if (credentials.is_register) {
+            await api.post('/auth/register', credentials);
+        }
+        const res = await api.post('/auth/login', { email: credentials.email, password: credentials.password });
         localStorage.setItem('paperplane_token', res.data.data.token);
         localStorage.setItem('paperplane_user', JSON.stringify(res.data.data.user));
         dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.data.user });
-        showToast('Login successful!');
+        showToast(credentials.is_register ? 'Registration successful!' : 'Login successful!');
         return true;
     } catch(e) {
-        showToast('Invalid credentials', 'error');
+        showToast(credentials.is_register ? 'Registration failed. Email might already exist.' : 'Invalid credentials', 'error');
         return false;
     }
   }, [showToast]);
