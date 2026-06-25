@@ -21,7 +21,7 @@ def create_ticket():
     user = User.query.filter_by(public_id=get_jwt_identity()).first()
     
     ticket = Ticket(
-        public_id=f"TICK-{uuid.uuid4().hex[:6].upper()}",
+        public_id=f"TKT-{uuid.uuid4().hex[:6].upper()}",
         customer_name=user.name if user else data.get('customerName', 'Unknown'),
         customer_email=user.email if user else data.get('customerEmail', 'Unknown'),
         company_name=user.company if user else data.get('companyName', ''),

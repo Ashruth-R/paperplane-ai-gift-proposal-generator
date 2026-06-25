@@ -6,7 +6,7 @@ class Ticket(db.Model):
     __tablename__ = 'tickets'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    public_id = db.Column(db.String(50), unique=True, nullable=False) # e.g. TICK-001
+    public_id = db.Column(db.String(50), unique=True, nullable=False) # e.g. TKT-001
     customer_name = db.Column(db.String(100), nullable=False)
     customer_email = db.Column(db.String(150), nullable=False)
     company_name = db.Column(db.String(150), nullable=True)
