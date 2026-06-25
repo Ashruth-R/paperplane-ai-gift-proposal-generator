@@ -790,6 +790,26 @@ export default function EnquiryPortal() {
                         }
                       }
 
+                      // Map items correctly to match ProposalPDFPreview structure
+                      const backendItems = proposalData?.current_version_data?.items || [];
+                      const recommendations = backendItems.length > 0 
+                        ? backendItems.map((item, i) => ({
+                            id: i,
+                            product: item.item_name,
+                            price: item.unit_price,
+                            reason: item.description || 'Recommended for this occasion.',
+                            quantity: item.quantity,
+                            category: 'Gift',
+                            score: 95
+                          }))
+                        : [
+                            { id: 1, product: 'Premium Tech Kit', price: 200, quantity: 100, reason: 'Perfect premium gift for executives.', category: 'Electronics', score: 98 },
+                            { id: 2, product: 'Engraved Metal Pen', price: 50, quantity: 100, reason: 'Classic high-value addition.', category: 'Stationery', score: 92 }
+                          ];
+
+                      const baseBudget = proposalData?.budget_per_unit || 500;
+                      const qty = proposalData?.quantity || 100;
+
                       // Create a mock proposal matching ProposalPDFPreview structure
                       const finalProposal = {
                         id: proposalData?.id || pId || `PRO-MOCK-${selectedTicket.id}`,
@@ -798,19 +818,16 @@ export default function EnquiryPortal() {
                         contactEmail: selectedTicket.customerEmail || 'client@example.com',
                         clientType: proposalData?.client_type || 'Enterprise',
                         occasion: proposalData?.occasion || selectedTicket.subject || 'Custom Request',
-                        quantity: proposalData?.quantity || 100,
-                        budget: proposalData?.budget_per_unit || 500,
+                        quantity: qty,
+                        budget: baseBudget,
                         deliveryTimeline: proposalData?.created_at || new Date().toISOString(),
-                        aiRecommendations: proposalData?.items || [
-                          { name: 'Premium Tech Kit', price: 200, quantity: 100, why: 'Perfect premium gift for executives.' },
-                          { name: 'Engraved Metal Pen', price: 50, quantity: 100, why: 'Classic high-value addition.' }
-                        ],
+                        aiRecommendations: recommendations,
                         costSummary: {
-                          total: (proposalData?.budget_per_unit || 500),
-                          productCost: (proposalData?.budget_per_unit || 500) * 0.8,
-                          brandingCost: (proposalData?.budget_per_unit || 500) * 0.1,
-                          packagingCost: (proposalData?.budget_per_unit || 500) * 0.05,
-                          logisticsCost: (proposalData?.budget_per_unit || 500) * 0.05
+                          total: proposalData?.current_version_data?.total_price || (baseBudget * qty),
+                          productCost: (baseBudget * qty) * 0.8,
+                          brandingCost: (baseBudget * qty) * 0.1,
+                          packagingCost: (baseBudget * qty) * 0.05,
+                          logisticsCost: (baseBudget * qty) * 0.05
                         }
                       };
 
