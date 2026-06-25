@@ -126,14 +126,14 @@ export default function OccasionCalendarPage() {
         <div className="flex items-center gap-4.5 flex-shrink-0">
           <div className="text-right hidden sm:block">
             <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block">Month Tracker</span>
-            <span className="text-xs font-black text-purple-700 bg-purple-50 border border-purple-200 px-2.5 py-1 rounded-lg mt-1 inline-block">
+            <span className="text-xs font-black text-brand-700 bg-brand-50 border border-brand-200 px-2.5 py-1 rounded-lg mt-1 inline-block">
               {allMonthEvents.length} Events Scheduled
             </span>
           </div>
           <button
             type="button"
             onClick={() => setAddEventModal(true)}
-            className="h-11 px-5 bg-brand-600 hover:bg-brand-500 text-[#ffffff] text-xs font-bold rounded-xl shadow-lg hover:shadow-purple-500/20 transition-all flex items-center gap-1.5"
+            className="h-11 px-5 bg-brand-600 hover:bg-brand-500 text-[#ffffff] text-xs font-bold rounded-xl shadow-lg hover:shadow-brand-500/20 transition-all flex items-center gap-1.5"
           >
             <Plus className="w-4 h-4" />
             <span>Add Event</span>
@@ -162,7 +162,7 @@ export default function OccasionCalendarPage() {
       {/* Calendar Statistics KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         {[
-          { label: 'Total Events', value: allMonthEvents.length, icon: Calendar, color: 'text-purple-700 bg-purple-50 border-purple-200' },
+          { label: 'Total Events', value: allMonthEvents.length, icon: Calendar, color: 'text-brand-700 bg-brand-50 border-brand-200' },
           { label: 'Celebrations', value: allMonthEvents.filter(e => e.type === 'celebration').length, icon: Gift, color: 'text-amber-700 bg-amber-50 border-amber-200' },
           { label: 'Meetings', value: allMonthEvents.filter(e => e.type === 'meeting').length, icon: Users, color: 'text-blue-700 bg-blue-50 border-blue-200' },
           { label: 'Milestones', value: allMonthEvents.filter(e => e.type === 'milestone').length, icon: Zap, color: 'text-violet-700 bg-violet-50 border-violet-200' },
@@ -195,7 +195,7 @@ export default function OccasionCalendarPage() {
           <div>
             <h4 className="text-[#1e3a8a] font-bold text-sm">Gifting Opportunities Detected</h4>
             <p className="text-blue-900 text-xs mt-0.5">
-              There are <span className="text-purple-700 font-black">{eligibleCount} events</span> eligible for automated gifting workflows in {MONTHS[month]} {year}.
+              There are <span className="text-brand-700 font-black">{eligibleCount} events</span> eligible for automated gifting workflows in {MONTHS[month]} {year}.
             </p>
           </div>
         </div>
@@ -208,7 +208,7 @@ export default function OccasionCalendarPage() {
 
       {/* Event Category Filter Chips */}
       <div className="flex flex-wrap gap-2.5">
-        {[['All', 'All Occasions', 'bg-purple-900/20 border-purple-700/40 text-purple-300 bg-purple-500'], ...Object.entries(EVENT_TYPES)].map(([k, v]) => {
+        {[['All', 'All Occasions', 'bg-brand-900/20 border-brand-700/40 text-brand-300 bg-brand-500'], ...Object.entries(EVENT_TYPES)].map(([k, v]) => {
           const isActive = selectedCategory === k;
           const label = k === 'All' ? v : v.label;
           const colorBullet = k === 'All' ? v.split(' ')[3] : v.color;
@@ -285,17 +285,17 @@ export default function OccasionCalendarPage() {
                       : 'cursor-pointer'
                   } ${
                     isSelected 
-                      ? 'bg-purple-50 border-2 border-purple-600 shadow-[0_0_15px_rgba(168,85,247,0.15)] -translate-y-0.5' 
+                      ? 'bg-brand-50 border-2 border-brand-600 shadow-[0_0_15px_rgba(168,85,247,0.15)] -translate-y-0.5' 
                       : isToday 
-                        ? 'bg-purple-100 border-2 border-purple-600 animate-pulse-glow' 
-                        : 'bg-[#ffffff] border-[#000000] hover:border-purple-500/50 hover:-translate-y-0.5 hover:shadow-md'
+                        ? 'bg-brand-100 border-2 border-brand-600 animate-pulse-glow' 
+                        : 'bg-[#ffffff] border-[#000000] hover:border-brand-500/50 hover:-translate-y-0.5 hover:shadow-md'
                   }`}
                 >
                   <span className={`text-xs font-black w-6.5 h-6.5 flex items-center justify-center rounded-full ${
                     isToday 
-                      ? 'bg-purple-600 text-[#ffffff] shadow-md' 
+                      ? 'bg-brand-600 text-[#ffffff] shadow-md' 
                       : isSelected 
-                        ? 'text-purple-700' 
+                        ? 'text-brand-700' 
                         : 'text-[#000000]'
                   }`}>
                     {isCurrentMonth ? day : ''}
@@ -318,7 +318,7 @@ export default function OccasionCalendarPage() {
                       );
                     })}
                     {filteredDayEvents.length > 2 && (
-                      <span className="text-[8px] font-black text-purple-400 bg-purple-950/30 border border-purple-500/10 px-1.5 py-0.5 rounded self-start">
+                      <span className="text-[8px] font-black text-brand-400 bg-brand-950/30 border border-brand-500/10 px-1.5 py-0.5 rounded self-start">
                         +{filteredDayEvents.length - 2} More
                       </span>
                     )}
@@ -390,14 +390,14 @@ export default function OccasionCalendarPage() {
           {/* Upcoming Event Highlight Countdown Card */}
           {upcomingEvent && (
             <div className="bg-[#ffffff] border border-[#000000] rounded-[20px] p-5 shadow-lg relative overflow-hidden w-full">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-full blur-xl pointer-events-none" />
-              <span className="text-[9px] font-black uppercase tracking-wider text-purple-700 bg-purple-50 border border-purple-200 px-2.5 py-1 rounded-md">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-brand-500/10 rounded-full blur-xl pointer-events-none" />
+              <span className="text-[9px] font-black uppercase tracking-wider text-brand-700 bg-brand-50 border border-brand-200 px-2.5 py-1 rounded-md">
                 Upcoming Gifting Milestone
               </span>
               <h4 className="text-[#000000] font-extrabold text-base mt-3.5 leading-tight">{upcomingEvent.title}</h4>
               <div className="flex items-center justify-between mt-4">
                 <span className="text-slate-600 text-xs font-bold flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-purple-600" />
+                  <Calendar className="w-3.5 h-3.5 text-brand-600" />
                   {MONTHS[new Date(upcomingEvent.date).getMonth()]} {new Date(upcomingEvent.date).getDate()}
                 </span>
                 <span className="text-[9px] font-black uppercase tracking-wider bg-amber-50 border border-amber-200 text-amber-700 px-2.5 py-1 rounded-lg animate-pulse">
@@ -436,9 +436,9 @@ export default function OccasionCalendarPage() {
                         }}
                       >
                         {/* Timeline Connector Dot */}
-                        <div className="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border border-white transition-all duration-300 bg-slate-300 group-hover:bg-purple-500" />
+                        <div className="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full border border-white transition-all duration-300 bg-slate-300 group-hover:bg-brand-500" />
                         
-                        <div className="bg-[#ffffff] border border-slate-200 rounded-xl p-3 hover:border-purple-500/50 hover:bg-slate-50 transition-all duration-300">
+                        <div className="bg-[#ffffff] border border-slate-200 rounded-xl p-3 hover:border-brand-500/50 hover:bg-slate-50 transition-all duration-300">
                           <div className="flex items-center gap-2 justify-between">
                             <span className="text-[9px] font-black uppercase tracking-wider text-slate-600 font-mono">
                               {MONTHS[month]} {dayNum}
@@ -447,7 +447,7 @@ export default function OccasionCalendarPage() {
                               {cfg.label}
                             </span>
                           </div>
-                          <p className="text-[#000000] text-xs font-bold mt-1.5 group-hover:text-purple-600 transition-colors truncate">{ev.title}</p>
+                          <p className="text-[#000000] text-xs font-bold mt-1.5 group-hover:text-brand-600 transition-colors truncate">{ev.title}</p>
                           <p className="text-slate-650 text-[10px] mt-1 truncate">{ev.note || 'No notes'}</p>
                         </div>
                       </div>
@@ -491,7 +491,7 @@ export default function OccasionCalendarPage() {
               value={newEvent.title} 
               onChange={e => setNewEvent(p => ({ ...p, title: e.target.value }))} 
               placeholder="e.g. Annual Team Offsite" 
-              className="w-full bg-slate-950/60 border border-white/5 focus:border-purple-500/50 rounded-xl px-3.5 py-2 text-[#ffffff] text-sm focus:outline-none focus:shadow-[0_0_15px_rgba(168,85,247,0.15)] transition-all duration-300" 
+              className="w-full bg-slate-950/60 border border-white/5 focus:border-brand-500/50 rounded-xl px-3.5 py-2 text-[#ffffff] text-sm focus:outline-none focus:shadow-[0_0_15px_rgba(168,85,247,0.15)] transition-all duration-300" 
             />
           </div>
           <div>
@@ -500,7 +500,7 @@ export default function OccasionCalendarPage() {
               type="date" 
               value={newEvent.date} 
               onChange={e => setNewEvent(p => ({ ...p, date: e.target.value }))} 
-              className="w-full bg-slate-950/60 border border-white/5 focus:border-purple-500/50 rounded-xl px-3.5 py-2 text-[#ffffff] text-sm focus:outline-none focus:shadow-[0_0_15px_rgba(168,85,247,0.15)] transition-all duration-300" 
+              className="w-full bg-slate-950/60 border border-white/5 focus:border-brand-500/50 rounded-xl px-3.5 py-2 text-[#ffffff] text-sm focus:outline-none focus:shadow-[0_0_15px_rgba(168,85,247,0.15)] transition-all duration-300" 
             />
           </div>
           <div>
@@ -508,7 +508,7 @@ export default function OccasionCalendarPage() {
             <select 
               value={newEvent.type} 
               onChange={e => setNewEvent(p => ({ ...p, type: e.target.value }))} 
-              className="w-full bg-slate-950/60 border border-white/5 focus:border-purple-500/50 rounded-xl px-3.5 py-2 text-[#ffffff] text-sm focus:outline-none focus:shadow-[0_0_15px_rgba(168,85,247,0.15)]"
+              className="w-full bg-slate-950/60 border border-white/5 focus:border-brand-500/50 rounded-xl px-3.5 py-2 text-[#ffffff] text-sm focus:outline-none focus:shadow-[0_0_15px_rgba(168,85,247,0.15)]"
             >
               {Object.entries(EVENT_TYPES).map(([k, v]) => <option key={k} value={k} className="bg-slate-900">{v.label}</option>)}
             </select>
@@ -520,7 +520,7 @@ export default function OccasionCalendarPage() {
               onChange={e => setNewEvent(p => ({ ...p, note: e.target.value }))} 
               placeholder="e.g. Gift bags needed for 15 executives..." 
               rows={3} 
-              className="w-full bg-slate-950/60 border border-white/5 focus:border-purple-500/50 rounded-xl px-3.5 py-2 text-[#ffffff] text-sm focus:outline-none focus:shadow-[0_0_15px_rgba(168,85,247,0.15)] transition-all duration-300 resize-none" 
+              className="w-full bg-slate-950/60 border border-white/5 focus:border-brand-500/50 rounded-xl px-3.5 py-2 text-[#ffffff] text-sm focus:outline-none focus:shadow-[0_0_15px_rgba(168,85,247,0.15)] transition-all duration-300 resize-none" 
             />
           </div>
         </div>

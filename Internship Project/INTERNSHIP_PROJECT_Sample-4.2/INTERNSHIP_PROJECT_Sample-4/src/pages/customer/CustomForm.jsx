@@ -12,7 +12,7 @@ const SECTION_HEADERS = [
     title: 'Recipient Details',
     subtitle: 'Tell us who will receive this corporate gift',
     icon: Gift,
-    color: 'from-purple-500/20 to-indigo-500/10 text-purple-400'
+    color: 'from-brand-500/20 to-indigo-500/10 text-brand-400'
   },
   {
     title: 'Budget & Quantity',
@@ -50,14 +50,14 @@ function FloatingInput({ label, id, value, onChange, placeholder, type = 'text',
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="w-full h-[56px] px-4 pt-5 pb-1 bg-[#ffffff] border border-slate-500 rounded-[14px] text-sm text-slate-800 placeholder-transparent outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300"
+        className="w-full h-[56px] px-4 pt-5 pb-1 bg-[#ffffff] border border-slate-500 rounded-[14px] text-sm text-slate-800 placeholder-transparent outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all duration-300"
         placeholder={placeholder}
       />
       <label
         htmlFor={id}
         className={`absolute left-4 pointer-events-none transition-all duration-200 ${
           active 
-            ? 'top-1.5 text-[10px] font-bold text-purple-600' 
+            ? 'top-1.5 text-[10px] font-bold text-brand-600' 
             : 'top-[17px] text-sm text-slate-500'
         }`}
       >
@@ -95,7 +95,7 @@ function FloatingSelect({ label, id, value, onChange, options }) {
         onClick={() => setOpen(o => !o)}
         className={`w-full h-[56px] px-4 text-left border rounded-[14px] text-sm transition-all duration-300 flex items-end pb-1 ${
           open
-            ? 'border-purple-500 ring-2 ring-purple-500/20'
+            ? 'border-brand-500 ring-2 ring-brand-500/20'
             : 'border-slate-500'
         }`}
         style={{ backgroundColor: '#ffffff', color: isFilled ? '#1e293b' : 'transparent' }}
@@ -107,7 +107,7 @@ function FloatingSelect({ label, id, value, onChange, options }) {
       <label
         className={`absolute left-4 pointer-events-none transition-all duration-200 ${
           isFilled || open
-            ? 'top-1.5 text-[10px] font-bold text-purple-600'
+            ? 'top-1.5 text-[10px] font-bold text-brand-600'
             : 'top-[17px] text-sm text-slate-500'
         }`}
       >
@@ -177,14 +177,14 @@ function FloatingTextArea({ label, id, value, onChange, placeholder, rows = 3 })
         onChange={onChange}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        className="w-full px-4 pt-6 pb-2 bg-[#ffffff] border border-slate-500 rounded-[14px] text-sm text-slate-800 placeholder-transparent outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all duration-300 resize-none"
+        className="w-full px-4 pt-6 pb-2 bg-[#ffffff] border border-slate-500 rounded-[14px] text-sm text-slate-800 placeholder-transparent outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all duration-300 resize-none"
         placeholder={placeholder}
       />
       <label
         htmlFor={id}
         className={`absolute left-4 pointer-events-none transition-all duration-200 ${
           active 
-            ? 'top-1.5 text-[10px] font-bold text-purple-600' 
+            ? 'top-1.5 text-[10px] font-bold text-brand-600' 
             : 'top-[18px] text-sm text-slate-500'
         }`}
       >
@@ -200,7 +200,7 @@ function CustomRangeSlider({ label, id, min, max, value, onChange, formatValue }
     <div className="space-y-3.5">
       <div className="flex justify-between items-center">
         <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">{label}</span>
-        <span className="text-purple-400 font-extrabold text-sm bg-purple-500/10 border border-purple-500/20 px-3 py-1 rounded-full">{formatValue(value)}</span>
+        <span className="text-brand-400 font-extrabold text-sm bg-brand-500/10 border border-brand-500/20 px-3 py-1 rounded-full">{formatValue(value)}</span>
       </div>
       <input
         type="range"
@@ -209,7 +209,7 @@ function CustomRangeSlider({ label, id, min, max, value, onChange, formatValue }
         max={max}
         value={value}
         onChange={onChange}
-        className="w-full accent-purple-500 bg-slate-950/60 h-2 rounded-lg cursor-pointer"
+        className="w-full accent-brand-500 bg-slate-950/60 h-2 rounded-lg cursor-pointer"
       />
       <div className="flex justify-between text-[10px] text-slate-500 font-semibold">
         <span>{formatValue(min)}</span>
@@ -241,8 +241,8 @@ function CustomMultiSelect({ label, options, selected = [], onChange }) {
               onClick={() => toggleOption(opt)}
               className={`px-4 py-2 rounded-full text-xs font-semibold border transition-all duration-200 ${
                 isSelected 
-                  ? 'bg-brand-600 text-white border-purple-500/30 shadow-md shadow-brand-500/25 hover:shadow-brand-500/40' 
-                  : 'bg-[#ffffff] text-slate-600 border-slate-400 hover:border-purple-500 hover:text-purple-600 hover:bg-purple-50'
+                  ? 'bg-brand-600 text-white border-brand-500/30 shadow-md shadow-brand-500/25 hover:shadow-brand-500/40' 
+                  : 'bg-[#ffffff] text-slate-600 border-slate-400 hover:border-brand-500 hover:text-brand-600 hover:bg-brand-50'
               }`}
             >
               {opt}
@@ -407,7 +407,7 @@ export default function CustomForm() {
           <div className="flex justify-between items-center bg-[#f8fafc] px-4 py-3 rounded-xl border border-slate-900">
             <span className="text-slate-500 text-xs font-semibold uppercase tracking-wider">Tracking Ticket ID</span>
             <div className="flex items-center gap-2">
-              <span className="text-purple-600 font-mono font-bold text-base">{generatedTicketId}</span>
+              <span className="text-brand-600 font-mono font-bold text-base">{generatedTicketId}</span>
               <button 
                 onClick={() => {
                   navigator.clipboard.writeText(generatedTicketId);
@@ -480,7 +480,7 @@ export default function CustomForm() {
         <div className="absolute top-[22px] left-10 right-10 h-[2px] bg-slate-200 -z-10" />
         {/* Foreground Progress Line */}
         <div 
-          className="absolute top-[22px] left-10 right-10 h-[2px] bg-gradient-to-r from-purple-500 to-indigo-500 -z-10 transition-all duration-300"
+          className="absolute top-[22px] left-10 right-10 h-[2px] bg-gradient-to-r from-brand-500 to-indigo-500 -z-10 transition-all duration-300"
           style={{ width: `${(step / (STEPS.length - 1)) * 95}%` }}
         />
 
@@ -493,14 +493,14 @@ export default function CustomForm() {
               <div 
                 className={`w-11 h-11 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
                   isCompleted 
-                    ? 'bg-[#ffffff] border-purple-600 text-purple-600 shadow-sm' 
+                    ? 'bg-[#ffffff] border-brand-600 text-brand-600 shadow-sm' 
                     : isActive 
-                      ? 'bg-[#ffffff] border-2 border-purple-600 text-purple-600 shadow-md shadow-purple-500/10 animate-pulse-subtle' 
+                      ? 'bg-[#ffffff] border-2 border-brand-600 text-brand-600 shadow-md shadow-brand-500/10 animate-pulse-subtle' 
                       : 'bg-[#ffffff] border-slate-300 text-slate-400'
                 }`}
               >
                 {isCompleted ? (
-                  <CheckCircle className="w-5 h-5 text-purple-600" />
+                  <CheckCircle className="w-5 h-5 text-brand-600" />
                 ) : (
                   <span className="text-xs font-black">{i + 1}</span>
                 )}
@@ -509,7 +509,7 @@ export default function CustomForm() {
               <span 
                 className={`text-[10px] md:text-xs mt-3 font-bold transition-all duration-300 whitespace-nowrap tracking-wider uppercase ${
                   isActive 
-                    ? 'text-purple-600 font-extrabold' 
+                    ? 'text-brand-600 font-extrabold' 
                     : isCompleted 
                       ? 'text-slate-800' 
                       : 'text-slate-400'
@@ -687,12 +687,12 @@ export default function CustomForm() {
           </div>
 
           {/* Quick Help Card */}
-          <div className="bg-purple-50/50 border border-purple-100 rounded-[24px] p-6 shadow-sm space-y-3">
-            <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
-              <Info className="w-4 h-4 text-purple-600" />
+          <div className="bg-brand-50/50 border border-brand-100 rounded-[24px] p-6 shadow-sm space-y-3">
+            <div className="w-8 h-8 rounded-lg bg-brand-100 flex items-center justify-center">
+              <Info className="w-4 h-4 text-brand-600" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-purple-700 uppercase tracking-wider">Need Assistance?</h4>
+              <h4 className="text-xs font-bold text-brand-700 uppercase tracking-wider">Need Assistance?</h4>
               <p className="text-[10px] text-slate-600 mt-2 leading-relaxed">
                 Our B2B gifting team is ready to help you assemble custom hampers and finalize themes.
               </p>

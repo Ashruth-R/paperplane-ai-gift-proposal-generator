@@ -25,7 +25,7 @@ const priorityConfig = {
   Low: 'text-surface-300 bg-surface-800 border-surface-700/60 font-semibold',
   Medium: 'text-amber-800 bg-amber-100/80 border-amber-300/60 font-semibold',
   High: 'text-rose-700 bg-rose-100/80 border-rose-300/60 font-semibold',
-  Urgent: 'text-purple-700 bg-purple-100/80 border-purple-300/60 font-semibold',
+  Urgent: 'text-brand-700 bg-brand-100/80 border-brand-300/60 font-semibold',
 };
 
 export default function EnquiryPortal() {

@@ -24,7 +24,7 @@ const roleColors = {
   designer: 'from-pink-600 to-rose-400',
   production: 'from-orange-600 to-amber-400',
   dispatch: 'from-cyan-600 to-blue-400',
-  sales: 'from-violet-600 to-purple-400',
+  sales: 'from-violet-600 to-brand-400',
 };
 
 export default function Sidebar({ mobile = false, onClose }) {

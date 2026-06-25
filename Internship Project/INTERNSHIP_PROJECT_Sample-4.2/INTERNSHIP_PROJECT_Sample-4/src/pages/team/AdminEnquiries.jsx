@@ -153,14 +153,14 @@ export default function AdminEnquiries() {
             value={search} 
             onChange={e => setSearch(e.target.value)}
             placeholder="Search by ticket ID, subject, company, or type..."
-            className="w-full pl-10 pr-4 py-2.5 bg-[#ffffff] border border-[#000000] rounded-xl text-sm text-slate-800 placeholder-slate-450 focus:outline-none focus:border-purple-500 transition-colors"
+            className="w-full pl-10 pr-4 py-2.5 bg-[#ffffff] border border-[#000000] rounded-xl text-sm text-slate-800 placeholder-slate-450 focus:outline-none focus:border-brand-500 transition-colors"
           />
         </div>
         <div className="relative">
           <select
             value={filterStatus} 
             onChange={e => setFilter(e.target.value)}
-            className="appearance-none pl-3.5 pr-9 py-2.5 bg-[#ffffff] border border-[#000000] rounded-xl text-sm text-slate-800 focus:outline-none focus:border-purple-500 transition-colors"
+            className="appearance-none pl-3.5 pr-9 py-2.5 bg-[#ffffff] border border-[#000000] rounded-xl text-sm text-slate-800 focus:outline-none focus:border-brand-500 transition-colors"
           >
             <option value="All" className="text-slate-800 bg-[#ffffff]">All Statuses</option>
             {ALL_STATUSES.map(s => <option key={s} className="text-slate-800 bg-[#ffffff]">{s}</option>)}
@@ -200,7 +200,7 @@ export default function AdminEnquiries() {
                 <div className="flex items-start justify-between gap-3 w-full">
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <span className="font-mono text-xs font-bold text-purple-600 bg-purple-50 border border-purple-200 px-2 py-0.5 rounded">{tkt.id}</span>
+                      <span className="font-mono text-xs font-bold text-brand-600 bg-brand-50 border border-brand-200 px-2 py-0.5 rounded">{tkt.id}</span>
                       <span className="text-slate-650 text-[10px] select-none">·</span>
                       <span className="text-slate-500 text-[10px] font-semibold uppercase tracking-wider">{tkt.type}</span>
                     </div>
@@ -282,7 +282,7 @@ export default function AdminEnquiries() {
                           value={assignedTo}
                           onChange={e => setAssignedTo(e.target.value)}
                           placeholder="e.g. Ravi Kumar"
-                          className="bg-[#ffffff] border border-[#000000] rounded-lg px-2.5 py-1 text-xs text-slate-800 focus:outline-none focus:border-purple-500 placeholder-slate-400"
+                          className="bg-[#ffffff] border border-[#000000] rounded-lg px-2.5 py-1 text-xs text-slate-800 focus:outline-none focus:border-brand-500 placeholder-slate-400"
                         />
                         <button
                           onClick={() => handleAssignCoordinator(selected)}
@@ -298,7 +298,7 @@ export default function AdminEnquiries() {
                     <p className="text-[10px] uppercase font-black tracking-wider text-slate-500">Customer Profile</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       <div className="flex items-start gap-3 p-3.5 bg-slate-50 rounded-xl border border-slate-200">
-                        <User className="w-4 h-4 text-purple-600 mt-0.5 flex-shrink-0" />
+                        <User className="w-4 h-4 text-brand-600 mt-0.5 flex-shrink-0" />
                         <div>
                           <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Contact</p>
                           <p className="text-sm font-bold text-slate-900 mt-0.5">
@@ -346,7 +346,7 @@ export default function AdminEnquiries() {
                           
                           <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200">
                             <p className="text-[9px] text-slate-500 uppercase tracking-wider">Total Value</p>
-                            <p className="text-base font-black text-purple-700 mt-0.5">
+                            <p className="text-base font-black text-brand-700 mt-0.5">
                               {formatCurrency(selected.orderDetails.budget * selected.orderDetails.quantity)}
                             </p>
                             <p className="text-[9px] text-slate-650">estimated</p>
@@ -364,7 +364,7 @@ export default function AdminEnquiries() {
                             <div className="flex flex-wrap gap-1 mt-1">
                               {selected.orderDetails.brandingReqs && selected.orderDetails.brandingReqs.length > 0 ? (
                                 selected.orderDetails.brandingReqs.map(brand => (
-                                  <span key={brand} className="px-2 py-0.5 bg-purple-950/45 border border-purple-900/30 text-purple-300 text-[9px] font-semibold rounded">
+                                  <span key={brand} className="px-2 py-0.5 bg-brand-950/45 border border-brand-900/30 text-brand-300 text-[9px] font-semibold rounded">
                                     {brand}
                                   </span>
                                 ))
@@ -406,7 +406,7 @@ export default function AdminEnquiries() {
                         {(selected.chatHistory || []).map((msg, i) => (
                           <div key={i} className={`flex flex-col ${msg.sender === 'admin' ? 'items-end' : 'items-start'}`}>
                             <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">{msg.sender === 'admin' ? 'You' : 'Customer'}</span>
-                            <div className={`px-3 py-2 rounded-xl text-sm max-w-[85%] shadow-sm ${msg.sender === 'admin' ? 'bg-purple-600 text-[#ffffff]' : 'bg-[#ffffff] border border-slate-200 text-slate-800'}`}>
+                            <div className={`px-3 py-2 rounded-xl text-sm max-w-[85%] shadow-sm ${msg.sender === 'admin' ? 'bg-brand-600 text-[#ffffff]' : 'bg-[#ffffff] border border-slate-200 text-slate-800'}`}>
                               {msg.text}
                             </div>
                             <span className="text-[9px] text-slate-650 mt-1">{formatDate(msg.timestamp, { hour: '2-digit', minute: '2-digit' })}</span>
@@ -421,7 +421,7 @@ export default function AdminEnquiries() {
                           value={chatMessage} onChange={e => setChatMessage(e.target.value)}
                           onKeyDown={e => e.key === 'Enter' && handleSendMessage()}
                           placeholder="Reply to customer..."
-                          className="flex-1 bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-purple-500 transition-colors placeholder-slate-400"
+                          className="flex-1 bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2 text-sm text-slate-800 focus:outline-none focus:border-brand-500 transition-colors placeholder-slate-400"
                         />
                         <button onClick={handleSendMessage} disabled={!chatMessage.trim()} className="px-4 py-2 bg-brand-600 hover:bg-brand-500 disabled:bg-slate-100 disabled:text-slate-450 text-[#ffffff] rounded-xl text-sm font-bold transition-all flex items-center gap-2 shadow-lg">
                           <Send className="w-4 h-4" />

@@ -200,12 +200,12 @@ export default function PersonalizationManager() {
               onClick={() => { setSelectedProduct(p); setSaved(false); }} 
               className={`relative flex flex-col items-center justify-center p-5 rounded-[20px] border transition-all duration-300 ${
                 isSelected 
-                  ? 'bg-[#ffffff] border-2 border-purple-600 shadow-[0_4px_12px_rgba(168,85,247,0.15)] scale-[1.02] text-purple-700' 
-                  : 'bg-[#ffffff] border-slate-300 text-slate-700 hover:border-purple-500/50 hover:-translate-y-1 hover:shadow-md'
+                  ? 'bg-[#ffffff] border-2 border-brand-600 shadow-[0_4px_12px_rgba(168,85,247,0.15)] scale-[1.02] text-brand-700' 
+                  : 'bg-[#ffffff] border-slate-300 text-slate-700 hover:border-brand-500/50 hover:-translate-y-1 hover:shadow-md'
               }`}
             >
               {isSelected && (
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-purple-600 animate-pulse" />
+                <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-brand-600 animate-pulse" />
               )}
               <span className="text-4xl mb-3 drop-shadow-md select-none">{p.emoji}</span>
               <span className="text-[10px] font-bold uppercase tracking-wider text-center">{p.label}</span>
@@ -223,7 +223,7 @@ export default function PersonalizationManager() {
           {/* Live Preview Toolbar Controls */}
           <div className="flex items-center justify-between bg-[#ffffff] border border-slate-200 rounded-2xl px-4 py-2.5 shadow-sm">
             <div className="flex items-center gap-2">
-              <Eye className="w-4 h-4 text-purple-600" />
+              <Eye className="w-4 h-4 text-brand-600" />
               <h2 className="text-slate-800 font-bold text-xs uppercase tracking-wider">Studio Live Preview</h2>
             </div>
             
@@ -232,7 +232,7 @@ export default function PersonalizationManager() {
               <button 
                 type="button"
                 onClick={() => setZoomLevel(z => Math.max(60, z - 10))}
-                className="p-1.5 rounded-lg bg-[#ffffff] border border-slate-300 text-slate-700 hover:text-purple-600 hover:bg-slate-100 transition-colors"
+                className="p-1.5 rounded-lg bg-[#ffffff] border border-slate-300 text-slate-700 hover:text-brand-600 hover:bg-slate-100 transition-colors"
                 title="Zoom Out"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M18 12H6" /></svg>
@@ -242,7 +242,7 @@ export default function PersonalizationManager() {
               <button 
                 type="button"
                 onClick={() => setZoomLevel(z => Math.min(140, z + 10))}
-                className="p-1.5 rounded-lg bg-[#ffffff] border border-slate-300 text-slate-700 hover:text-purple-600 hover:bg-slate-100 transition-colors"
+                className="p-1.5 rounded-lg bg-[#ffffff] border border-slate-300 text-slate-700 hover:text-brand-600 hover:bg-slate-100 transition-colors"
                 title="Zoom In"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12M6 12h12" /></svg>
@@ -252,7 +252,7 @@ export default function PersonalizationManager() {
               <button 
                 type="button"
                 onClick={() => setZoomLevel(100)}
-                className="p-1.5 rounded-lg bg-[#ffffff] border border-slate-300 text-slate-700 hover:text-purple-600 hover:bg-slate-100 transition-colors text-[10px] font-bold px-2.5"
+                className="p-1.5 rounded-lg bg-[#ffffff] border border-slate-300 text-slate-700 hover:text-brand-600 hover:bg-slate-100 transition-colors text-[10px] font-bold px-2.5"
                 title="Reset View"
               >
                 Reset
@@ -261,7 +261,7 @@ export default function PersonalizationManager() {
               <button 
                 type="button"
                 onClick={() => setShowFullPreview(true)}
-                className="p-1.5 rounded-lg bg-[#ffffff] border border-slate-300 text-slate-700 hover:text-purple-600 hover:bg-slate-100 transition-colors"
+                className="p-1.5 rounded-lg bg-[#ffffff] border border-slate-300 text-slate-700 hover:text-brand-600 hover:bg-slate-100 transition-colors"
                 title="Full Preview"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4" /></svg>
@@ -352,8 +352,8 @@ export default function PersonalizationManager() {
                   onClick={() => setPreviewBackground(bg.id)}
                   className={`h-9 rounded-lg border text-[10px] font-bold transition-all ${
                     previewBackground === bg.id 
-                      ? 'bg-purple-50 border-purple-600 text-purple-700 shadow-sm' 
-                      : 'bg-[#ffffff] border-slate-300 text-slate-700 hover:border-purple-500/50 hover:bg-purple-50/20'
+                      ? 'bg-brand-50 border-brand-600 text-brand-700 shadow-sm' 
+                      : 'bg-[#ffffff] border-slate-300 text-slate-700 hover:border-brand-500/50 hover:bg-brand-50/20'
                   }`}
                 >
                   {bg.name}
@@ -368,7 +368,7 @@ export default function PersonalizationManager() {
             <button 
               type="button"
               onClick={handleReset}
-              className="flex-1 h-12 rounded-xl text-xs font-bold text-slate-700 hover:text-purple-600 hover:bg-slate-100 border border-slate-300 transition-all duration-300 flex items-center justify-center gap-1.5"
+              className="flex-1 h-12 rounded-xl text-xs font-bold text-slate-700 hover:text-brand-600 hover:bg-slate-100 border border-slate-300 transition-all duration-300 flex items-center justify-center gap-1.5"
             >
               <RotateCcw className="w-4 h-4" />
               <span>Reset Studio</span>
@@ -378,7 +378,7 @@ export default function PersonalizationManager() {
             <button 
               type="button"
               onClick={() => showToast('Design preview exported to downloads!', 'success')}
-              className="flex-1 h-12 rounded-xl text-xs font-bold text-slate-700 hover:text-purple-600 hover:bg-slate-100 border border-slate-300 transition-all duration-300 flex items-center justify-center gap-1.5 shadow-sm"
+              className="flex-1 h-12 rounded-xl text-xs font-bold text-slate-700 hover:text-brand-600 hover:bg-slate-100 border border-slate-300 transition-all duration-300 flex items-center justify-center gap-1.5 shadow-sm"
             >
               <Download className="w-4 h-4" />
               <span>Export PNG</span>
@@ -413,7 +413,7 @@ export default function PersonalizationManager() {
           {/* Live Statistics Assembly Checklist */}
           <div className="bg-[#ffffff] border border-slate-200 rounded-[24px] p-6 shadow-sm space-y-3.5">
             <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest border-b border-slate-200 pb-2 flex items-center gap-2">
-              <Info className="w-3.5 h-3.5 text-purple-600" />
+              <Info className="w-3.5 h-3.5 text-brand-600" />
               <span>Studio Checklist Status</span>
             </h4>
             <div className="grid grid-cols-2 gap-3.5 text-xs">
@@ -440,7 +440,7 @@ export default function PersonalizationManager() {
           {/* Logo Upload Section Card */}
           <div className="bg-[#ffffff] border border-slate-200 rounded-[24px] p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-200 pb-3">
-              <Upload className="w-4 h-4 text-purple-600" />
+              <Upload className="w-4 h-4 text-brand-600" />
               <h3 className="text-slate-800 font-bold text-sm">Upload Corporate Logo</h3>
             </div>
             
@@ -450,7 +450,7 @@ export default function PersonalizationManager() {
               className={`group cursor-pointer flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-[18px] transition-all duration-300 ${
                 logoUploaded 
                   ? 'border-emerald-50 bg-emerald-50/50 shadow-sm' 
-                  : 'border-slate-300 bg-slate-50 hover:border-purple-500 hover:bg-purple-50/30'
+                  : 'border-slate-300 bg-slate-50 hover:border-brand-500 hover:bg-brand-50/30'
               }`}
             >
               {logoUploaded ? (
@@ -472,12 +472,12 @@ export default function PersonalizationManager() {
                 </div>
               ) : (
                 <div className="flex flex-col items-center text-center gap-2.5">
-                  <div className="w-12 h-12 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center group-hover:border-purple-500/30 transition-all">
+                  <div className="w-12 h-12 rounded-full bg-slate-100 border border-slate-300 flex items-center justify-center group-hover:border-brand-500/30 transition-all">
                     <Upload className="w-5 h-5 text-slate-650" />
                   </div>
                   <div>
                     <h4 className="text-sm font-bold text-slate-800">Upload Brand Vector Logo</h4>
-                    <p className="text-xs text-slate-600 mt-1">Drag & Drop or <span className="text-purple-600 underline font-semibold">Click to Browse</span></p>
+                    <p className="text-xs text-slate-600 mt-1">Drag & Drop or <span className="text-brand-600 underline font-semibold">Click to Browse</span></p>
                   </div>
                   <span className="text-[10px] text-slate-650 bg-slate-100 px-2.5 py-1 rounded-full border border-slate-200">
                     SVG, PNG, JPG up to 5 MB
@@ -490,7 +490,7 @@ export default function PersonalizationManager() {
           {/* Brand Colors Configurator Card */}
           <div className="bg-[#ffffff] border border-slate-200 rounded-[24px] p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-200 pb-3">
-              <Palette className="w-4 h-4 text-purple-600" />
+              <Palette className="w-4 h-4 text-brand-600" />
               <h3 className="text-slate-800 font-bold text-sm">Brand Colors & Palette</h3>
             </div>
             
@@ -502,7 +502,7 @@ export default function PersonalizationManager() {
               ].map((c, idx) => (
                 <div key={c.label} className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 flex flex-col gap-2 relative">
                   <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
-                    {c.label} {idx === 2 && <span className="text-[9px] text-purple-600/80 italic font-medium">(Visual)</span>}
+                    {c.label} {idx === 2 && <span className="text-[9px] text-brand-600/80 italic font-medium">(Visual)</span>}
                   </span>
                   <div className="flex items-center gap-2 w-full mt-1">
                     <div 
@@ -544,7 +544,7 @@ export default function PersonalizationManager() {
           {/* Typography Selector Card */}
           <div className="bg-[#ffffff] border border-slate-200 rounded-[24px] p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-200 pb-3">
-              <Type className="w-4 h-4 text-purple-600" />
+              <Type className="w-4 h-4 text-brand-600" />
               <h3 className="text-slate-800 font-bold text-sm">Brand Text & Typography</h3>
             </div>
 
@@ -556,7 +556,7 @@ export default function PersonalizationManager() {
                     value={customText} 
                     onChange={e => setCustomText(e.target.value)} 
                     placeholder="Your Brand Name" 
-                    className="w-full h-11 bg-slate-50 border border-slate-300 rounded-xl px-3 text-slate-800 text-sm focus:outline-none focus:border-purple-500 transition-colors" 
+                    className="w-full h-11 bg-slate-50 border border-slate-300 rounded-xl px-3 text-slate-800 text-sm focus:outline-none focus:border-brand-500 transition-colors" 
                   />
                 </div>
                 <div className="relative">
@@ -564,7 +564,7 @@ export default function PersonalizationManager() {
                   <select 
                     value={fontStyle} 
                     onChange={e => setFontStyle(e.target.value)} 
-                    className="w-full h-11 bg-slate-50 border border-slate-300 rounded-xl px-2.5 text-slate-800 text-sm focus:outline-none focus:border-purple-500 appearance-none"
+                    className="w-full h-11 bg-slate-50 border border-slate-300 rounded-xl px-2.5 text-slate-800 text-sm focus:outline-none focus:border-brand-500 appearance-none"
                   >
                     {FONT_STYLES.map(f => <option key={f} value={f} style={{ backgroundColor: '#ffffff', color: '#1e293b' }} className="bg-white text-slate-800">{f}</option>)}
                   </select>
@@ -578,7 +578,7 @@ export default function PersonalizationManager() {
                 <div>
                   <div className="flex justify-between items-center mb-1.5">
                     <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">Font Size</label>
-                    <span className="text-xs text-purple-600 font-extrabold">{fontSize}px</span>
+                    <span className="text-xs text-brand-600 font-extrabold">{fontSize}px</span>
                   </div>
                   <input 
                     type="range" 
@@ -586,7 +586,7 @@ export default function PersonalizationManager() {
                     max="32" 
                     value={fontSize} 
                     onChange={e => setFontSize(+e.target.value)} 
-                    className="w-full accent-purple-500 bg-slate-200 h-1.5 rounded-lg cursor-pointer" 
+                    className="w-full accent-brand-500 bg-slate-200 h-1.5 rounded-lg cursor-pointer" 
                   />
                 </div>
                 <div>
@@ -599,7 +599,7 @@ export default function PersonalizationManager() {
                         onClick={() => setFontWeight(w)} 
                         className={`flex-1 h-8 rounded-lg text-[10px] font-bold transition-all ${
                           fontWeight === w 
-                            ? 'bg-purple-600 text-white shadow-md' 
+                            ? 'bg-brand-600 text-white shadow-md' 
                             : 'text-slate-500 hover:text-slate-800'
                         }`}
                       >
@@ -631,19 +631,19 @@ export default function PersonalizationManager() {
           {/* Logo & Position Customization Card */}
           <div className="bg-[#ffffff] border border-slate-200 rounded-[24px] p-6 shadow-sm space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-200 pb-3">
-              <Wand2 className="w-4 h-4 text-purple-600" />
+              <Wand2 className="w-4 h-4 text-brand-600" />
               <h3 className="text-slate-800 font-bold text-sm">Personalization Controls</h3>
             </div>
 
             <div className="space-y-4">
               {/* Logo Settings */}
               <div className="space-y-3">
-                <span className="text-[10px] font-bold text-purple-600 uppercase tracking-widest block">Logo Settings</span>
+                <span className="text-[10px] font-bold text-brand-600 uppercase tracking-widest block">Logo Settings</span>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <div className="flex justify-between items-center mb-1.5">
                       <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">Logo Size</label>
-                      <span className="text-xs text-purple-600 font-extrabold">{logoSize}px</span>
+                      <span className="text-xs text-brand-600 font-extrabold">{logoSize}px</span>
                     </div>
                     <input 
                       type="range" 
@@ -651,13 +651,13 @@ export default function PersonalizationManager() {
                       max="120" 
                       value={logoSize} 
                       onChange={e => setLogoSize(+e.target.value)} 
-                      className="w-full accent-purple-500 bg-slate-200 h-1.5 rounded-lg cursor-pointer" 
+                      className="w-full accent-brand-500 bg-slate-200 h-1.5 rounded-lg cursor-pointer" 
                     />
                   </div>
                   <div>
                     <div className="flex justify-between items-center mb-1.5">
                       <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">Logo Rotation</label>
-                      <span className="text-xs text-purple-600 font-extrabold">{logoRotation}°</span>
+                      <span className="text-xs text-brand-600 font-extrabold">{logoRotation}°</span>
                     </div>
                     <input 
                       type="range" 
@@ -665,7 +665,7 @@ export default function PersonalizationManager() {
                       max="180" 
                       value={logoRotation} 
                       onChange={e => setLogoRotation(+e.target.value)} 
-                      className="w-full accent-purple-500 bg-slate-200 h-1.5 rounded-lg cursor-pointer" 
+                      className="w-full accent-brand-500 bg-slate-200 h-1.5 rounded-lg cursor-pointer" 
                     />
                   </div>
                 </div>
@@ -679,7 +679,7 @@ export default function PersonalizationManager() {
                         onClick={() => { setLogoPosition(pos); setShowLogoOnProduct(true); }} 
                         className={`flex-1 h-8 rounded-lg text-[10px] font-bold transition-all ${
                           logoPosition === pos 
-                            ? 'bg-purple-600 text-white shadow-md' 
+                            ? 'bg-brand-600 text-white shadow-md' 
                             : 'text-slate-500 hover:text-slate-800'
                         }`}
                       >
@@ -692,7 +692,7 @@ export default function PersonalizationManager() {
 
               {/* Text Settings */}
               <div className="space-y-3 pt-2 border-t border-slate-200">
-                <span className="text-[10px] font-bold text-purple-600 uppercase tracking-widest block">Text Layout Settings</span>
+                <span className="text-[10px] font-bold text-brand-600 uppercase tracking-widest block">Text Layout Settings</span>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Text Position</label>
@@ -704,7 +704,7 @@ export default function PersonalizationManager() {
                           onClick={() => setTextPosition(pos)} 
                           className={`flex-1 h-8 rounded-lg text-[10px] font-bold transition-all ${
                             textPosition === pos 
-                              ? 'bg-purple-600 text-white shadow-md' 
+                              ? 'bg-brand-600 text-white shadow-md' 
                               : 'text-slate-500 hover:text-slate-800'
                           }`}
                         >
@@ -725,7 +725,7 @@ export default function PersonalizationManager() {
                             onClick={() => setTextAlign(a)} 
                             className={`flex-1 h-8 rounded-lg flex items-center justify-center transition-all ${
                               isSel 
-                                ? 'bg-purple-600 text-white shadow-md' 
+                                ? 'bg-brand-600 text-white shadow-md' 
                                 : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'
                             }`}
                             title={`Align ${a}`}
@@ -741,14 +741,14 @@ export default function PersonalizationManager() {
 
               {/* Product Settings */}
               <div className="space-y-3 pt-2 border-t border-slate-200">
-                <span className="text-[10px] font-bold text-purple-600 uppercase tracking-widest block">Product Settings</span>
+                <span className="text-[10px] font-bold text-brand-600 uppercase tracking-widest block">Product Settings</span>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="relative">
                     <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Placement Area</label>
                     <select 
                       value={placementArea} 
                       onChange={e => setPlacementArea(e.target.value)} 
-                      className="w-full h-11 bg-slate-55 border border-slate-300 rounded-xl px-2.5 text-slate-800 text-xs focus:outline-none focus:border-purple-500 appearance-none"
+                      className="w-full h-11 bg-slate-55 border border-slate-300 rounded-xl px-2.5 text-slate-800 text-xs focus:outline-none focus:border-brand-500 appearance-none"
                     >
                       {['Front Cover', 'Back Cover', 'Inner Sleeve', 'Gift Box Lid'].map(p => (
                         <option key={p} value={p} style={{ backgroundColor: '#ffffff', color: '#1e293b' }}>{p}</option>
@@ -763,7 +763,7 @@ export default function PersonalizationManager() {
                     <select 
                       value={brandingPosition} 
                       onChange={e => setBrandingPosition(e.target.value)} 
-                      className="w-full h-11 bg-slate-55 border border-slate-300 rounded-xl px-2.5 text-slate-800 text-xs focus:outline-none focus:border-purple-500 appearance-none"
+                      className="w-full h-11 bg-slate-55 border border-slate-300 rounded-xl px-2.5 text-slate-800 text-xs focus:outline-none focus:border-brand-500 appearance-none"
                     >
                       {['Center Centered', 'Bottom Right Corner', 'Top Center', 'Left Chest'].map(p => (
                         <option key={p} value={p} style={{ backgroundColor: '#ffffff', color: '#1e293b' }}>{p}</option>
@@ -779,12 +779,12 @@ export default function PersonalizationManager() {
           </div>
 
           {/* AI Style Suggestion Overlay Card */}
-          <div className="bg-purple-50/50 border border-purple-100 rounded-[24px] p-6 flex items-start gap-3.5 shadow-sm">
-            <div className="w-10 h-10 rounded-xl bg-purple-100 flex items-center justify-center flex-shrink-0">
-              <Sparkles className="w-5 h-5 text-purple-600" />
+          <div className="bg-brand-50/50 border border-brand-100 rounded-[24px] p-6 flex items-start gap-3.5 shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-brand-100 flex items-center justify-center flex-shrink-0">
+              <Sparkles className="w-5 h-5 text-brand-600" />
             </div>
             <div>
-              <p className="text-purple-700 font-extrabold text-sm">AI Style suggestion</p>
+              <p className="text-brand-700 font-extrabold text-sm">AI Style suggestion</p>
               <p className="text-slate-600 text-xs mt-1.5 leading-relaxed">
                 Based on your selections, a minimalist logo + monochrome palette works best for executive corporate gifting. Consider embossing on the front cover of the {selectedProduct.label}.
               </p>

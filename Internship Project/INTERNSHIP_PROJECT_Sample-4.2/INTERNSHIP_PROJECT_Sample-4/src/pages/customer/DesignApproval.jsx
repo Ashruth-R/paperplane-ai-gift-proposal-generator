@@ -183,7 +183,7 @@ export default function DesignApproval() {
       {/* Approval KPI Stats Header */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         {[
-          { label: 'Total Designs', value: personalizedDesigns.length, color: 'text-purple-700 bg-purple-100 border-purple-200' },
+          { label: 'Total Designs', value: personalizedDesigns.length, color: 'text-brand-700 bg-brand-100 border-brand-200' },
           { label: 'Pending Review', value: personalizedDesigns.filter(d => d.status === 'Pending Review').length, color: 'text-amber-700 bg-amber-100 border-amber-200' },
           { label: 'Approved', value: personalizedDesigns.filter(d => d.status === 'Approved').length, color: 'text-emerald-700 bg-emerald-100 border-emerald-200' },
           { label: 'Rejected', value: personalizedDesigns.filter(d => d.status === 'Rejected').length, color: 'text-rose-700 bg-rose-100 border-rose-200' },
@@ -213,7 +213,7 @@ export default function DesignApproval() {
               onClick={() => setFilterStatus(s)}
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 whitespace-nowrap ${
                 isActive 
-                  ? 'bg-purple-600 text-[#ffffff] shadow-lg shadow-purple-500/20' 
+                  ? 'bg-brand-600 text-[#ffffff] shadow-lg shadow-brand-500/20' 
                   : 'text-slate-500 hover:text-[#000000] hover:bg-slate-100'
               }`}
             >
@@ -241,7 +241,7 @@ export default function DesignApproval() {
           return (
             <div
               key={design.id}
-              className="flex flex-col bg-[#ffffff] border border-[#000000] rounded-[24px] overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-purple-500/5"
+              className="flex flex-col bg-[#ffffff] border border-[#000000] rounded-[24px] overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-brand-500/5"
             >
               {/* Mockup Preview Dynamic/Static Frame */}
               <div 
@@ -362,7 +362,7 @@ export default function DesignApproval() {
                         <div className="flex flex-col items-center gap-1">
                           <div className={`w-5.5 h-5.5 rounded-full flex items-center justify-center border text-[9px] font-bold ${
                             step.done 
-                              ? `${step.color || 'bg-purple-600'} border-transparent text-[#ffffff] shadow-md`
+                              ? `${step.color || 'bg-brand-600'} border-transparent text-[#ffffff] shadow-md`
                               : step.current
                                 ? 'bg-amber-50 border-amber-400 text-amber-700 animate-pulse-soft'
                                 : 'bg-slate-200 border-slate-300 text-slate-500'
@@ -375,7 +375,7 @@ export default function DesignApproval() {
                         </div>
                         {sIdx < sArr.length - 1 && (
                           <div className={`h-[1px] flex-1 mx-2 ${
-                            sArr[sIdx+1].done ? 'bg-purple-500' : 'bg-slate-300'
+                            sArr[sIdx+1].done ? 'bg-brand-500' : 'bg-slate-300'
                           }`} />
                         )}
                       </div>
@@ -403,24 +403,24 @@ export default function DesignApproval() {
                     onClick={() => setVersionsOpen(prev => ({ ...prev, [design.id]: !verOpen }))}
                     className="flex items-center gap-2 text-xs text-slate-550 hover:text-[#000000] transition-colors w-full"
                   >
-                    <History className="w-3.5 h-3.5 text-purple-400" />
+                    <History className="w-3.5 h-3.5 text-brand-400" />
                     <span className="font-bold">Review Cycles ({versions.length})</span>
                     <ChevronDown className={`w-4 h-4 ml-auto text-slate-500 transition-transform duration-250 ${verOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {verOpen && (
-                    <div className="mt-3 flex flex-col gap-3 border-l-2 border-purple-500/30 pl-4 ml-3 animate-slide-down">
+                    <div className="mt-3 flex flex-col gap-3 border-l-2 border-brand-500/30 pl-4 ml-3 animate-slide-down">
                       {versions.map((v) => (
                         <div key={v.version} className="relative flex flex-col gap-1">
                           {/* Timeline dot */}
                           <div className={`absolute -left-[21px] top-1.5 w-2 h-2 rounded-full ${
-                            v.active ? 'bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]' : 'bg-slate-300'
+                            v.active ? 'bg-brand-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]' : 'bg-slate-300'
                           }`} />
                           
                           <div className="flex items-center gap-2">
                             <span className={`text-[9px] font-black font-mono px-2 py-0.5 rounded-full border ${
                               v.active 
-                                ? 'bg-purple-5 border-purple-200 text-purple-700' 
+                                ? 'bg-brand-5 border-brand-200 text-brand-700' 
                                 : 'bg-slate-100 border-slate-200 text-slate-500'
                             }`}>{v.version}</span>
                             <span className="text-[10px] text-slate-500 font-bold">{v.date}</span>
@@ -463,7 +463,7 @@ export default function DesignApproval() {
                         <button
                           type="button"
                           onClick={() => handleApprove(design.id)}
-                          className="flex-1 h-11 bg-brand-600 hover:bg-brand-500 text-[#ffffff] text-xs font-bold rounded-xl shadow-lg hover:shadow-purple-500/20 transition-all flex items-center justify-center gap-1.5"
+                          className="flex-1 h-11 bg-brand-600 hover:bg-brand-500 text-[#ffffff] text-xs font-bold rounded-xl shadow-lg hover:shadow-brand-500/20 transition-all flex items-center justify-center gap-1.5"
                         >
                           <ThumbsUp className="w-3.5 h-3.5" />
                           <span>Approve</span>

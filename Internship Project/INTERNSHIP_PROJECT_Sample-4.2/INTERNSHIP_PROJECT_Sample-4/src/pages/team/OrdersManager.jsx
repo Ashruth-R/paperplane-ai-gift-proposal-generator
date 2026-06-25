@@ -123,13 +123,13 @@ export default function OrdersManager() {
               onClick={() => setActiveTab(tab)}
               className={`px-4 py-3 text-sm font-semibold border-b-2 whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
                 activeTab === tab
-                  ? 'border-purple-500 text-purple-400 bg-purple-500/5'
+                  ? 'border-brand-500 text-brand-400 bg-brand-500/5'
                   : 'border-transparent text-slate-400 hover:text-white'
               }`}
             >
               <span>{tab}</span>
               <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
-                activeTab === tab ? 'bg-purple-500/20 text-purple-300' : 'bg-white/5 text-slate-500'
+                activeTab === tab ? 'bg-brand-500/20 text-brand-300' : 'bg-white/5 text-slate-500'
               }`}>
                 {count}
               </span>
@@ -148,7 +148,7 @@ export default function OrdersManager() {
             {/* Info column */}
             <div className="space-y-3 flex-1">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="text-xs font-mono font-extrabold text-purple-600 bg-purple-50 border border-purple-200 px-3 py-1 rounded-lg">
+                <span className="text-xs font-mono font-extrabold text-brand-600 bg-brand-50 border border-brand-200 px-3 py-1 rounded-lg">
                   {order.id}
                 </span>
                 <span className={`text-[10px] px-2.5 py-1 border rounded-full font-bold uppercase tracking-wider ${getStatusStyle(order.status)}`}>
@@ -158,7 +158,7 @@ export default function OrdersManager() {
               </div>
 
               <div>
-                <h3 className="text-base font-bold text-slate-900 group-hover:text-purple-600 transition-colors">
+                <h3 className="text-base font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
                   {order.customerName}
                 </h3>
                 <p className="text-xs text-slate-600 mt-0.5">{order.companyName}</p>

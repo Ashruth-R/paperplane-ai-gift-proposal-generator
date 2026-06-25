@@ -243,7 +243,7 @@ export default function GiftOrder() {
 
       {/* Search + Sort Bar */}
       <div className="flex flex-col sm:flex-row gap-4">
-        <div className="flex items-center gap-3 flex-1 bg-[#ffffff] border border-[#000000] rounded-[20px] px-5 py-3 focus-within:border-purple-500/50 focus-within:shadow-[0_0_20px_rgba(168,85,247,0.15)] transition-all duration-300">
+        <div className="flex items-center gap-3 flex-1 bg-[#ffffff] border border-[#000000] rounded-[20px] px-5 py-3 focus-within:border-brand-500/50 focus-within:shadow-[0_0_20px_rgba(168,85,247,0.15)] transition-all duration-300">
           <Search className="w-4.5 h-4.5 text-[#000000] flex-shrink-0" />
           <input 
             value={search} 
@@ -270,9 +270,9 @@ export default function GiftOrder() {
                   <button 
                     key={opt.value} 
                     onClick={() => { setSortBy(opt.value); setSortOpen(false); }} 
-                    className={`w-full flex items-center gap-2 px-4 py-3 text-sm transition-colors ${sortBy === opt.value ? 'text-purple-700 bg-purple-100/50' : 'text-[#000000] hover:bg-slate-50'}`}
+                    className={`w-full flex items-center gap-2 px-4 py-3 text-sm transition-colors ${sortBy === opt.value ? 'text-brand-700 bg-brand-100/50' : 'text-[#000000] hover:bg-slate-50'}`}
                   >
-                    {sortBy === opt.value && <Check className="w-3.5 h-3.5 text-purple-700" />}
+                    {sortBy === opt.value && <Check className="w-3.5 h-3.5 text-brand-700" />}
                     <span className={sortBy !== opt.value ? 'ml-5' : ''}>{opt.label}</span>
                   </button>
                 ))}
@@ -282,7 +282,7 @@ export default function GiftOrder() {
           
           <button 
             onClick={() => setShowFilters(!showFilters)} 
-            className={`flex items-center gap-2 border rounded-[20px] px-5 py-3 text-sm font-medium transition-all duration-300 ${showFilters ? 'bg-brand-600 border-purple-500 text-[#ffffff] shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40' : 'bg-[#ffffff] border-[#000000] text-[#000000] hover:bg-slate-50'}`}
+            className={`flex items-center gap-2 border rounded-[20px] px-5 py-3 text-sm font-medium transition-all duration-300 ${showFilters ? 'bg-brand-600 border-brand-500 text-[#ffffff] shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40' : 'bg-[#ffffff] border-[#000000] text-[#000000] hover:bg-slate-50'}`}
           >
             <Filter className={`w-4 h-4 ${showFilters ? 'text-[#ffffff]' : 'text-[#000000]'}`} />
             <span>Filters</span>
@@ -301,7 +301,7 @@ export default function GiftOrder() {
                   <button 
                     key={cat} 
                     onClick={() => setActiveCategory(cat)} 
-                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 border ${activeCategory === cat ? 'bg-brand-600 text-[#ffffff] border-purple-500 shadow-md shadow-brand-500/25 hover:shadow-brand-500/40' : 'bg-slate-50 text-slate-600 border-slate-200 hover:text-[#000000] hover:bg-slate-100 hover:border-purple-500'}`}
+                    className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 border ${activeCategory === cat ? 'bg-brand-600 text-[#ffffff] border-brand-500 shadow-md shadow-brand-500/25 hover:shadow-brand-500/40' : 'bg-slate-50 text-slate-600 border-slate-200 hover:text-[#000000] hover:bg-slate-100 hover:border-brand-500'}`}
                   >
                     {cat}
                   </button>
@@ -311,11 +311,11 @@ export default function GiftOrder() {
             <div>
               <div className="flex items-center justify-between mb-3.5">
                 <p className="text-xs font-bold text-slate-700 uppercase tracking-widest">Price Range</p>
-                <span className="text-purple-700 text-sm font-extrabold">{formatCurrency(priceRange[0])} — {formatCurrency(priceRange[1])}</span>
+                <span className="text-brand-700 text-sm font-extrabold">{formatCurrency(priceRange[0])} — {formatCurrency(priceRange[1])}</span>
               </div>
               <div className="flex gap-4">
-                <input type="range" min="0" max="6000" value={priceRange[0]} onChange={e => setPriceRange([+e.target.value, priceRange[1]])} className="flex-1 accent-purple-500" />
-                <input type="range" min="0" max="6000" value={priceRange[1]} onChange={e => setPriceRange([priceRange[0], +e.target.value])} className="flex-1 accent-purple-500" />
+                <input type="range" min="0" max="6000" value={priceRange[0]} onChange={e => setPriceRange([+e.target.value, priceRange[1]])} className="flex-1 accent-brand-500" />
+                <input type="range" min="0" max="6000" value={priceRange[1]} onChange={e => setPriceRange([priceRange[0], +e.target.value])} className="flex-1 accent-brand-500" />
               </div>
             </div>
           </div>
@@ -370,7 +370,7 @@ export default function GiftOrder() {
               {/* Content Details */}
               <div className="p-6 flex flex-col flex-1">
                 <div className="mb-4">
-                  <h3 className="text-lg font-bold text-slate-800 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-indigo-600 transition-all">
+                  <h3 className="text-lg font-bold text-slate-800 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-brand-600 group-hover:to-indigo-600 transition-all">
                     {product.name}
                   </h3>
                   <p className="text-xs text-slate-500 mt-2 line-clamp-2 leading-relaxed">
@@ -385,7 +385,7 @@ export default function GiftOrder() {
                       key={t} 
                       className="inline-flex items-center px-2 py-1 rounded-md bg-slate-50 text-[10px] font-medium text-slate-600 border border-slate-100"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-purple-400 mr-1.5" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-400 mr-1.5" />
                       {t}
                     </span>
                   ))}

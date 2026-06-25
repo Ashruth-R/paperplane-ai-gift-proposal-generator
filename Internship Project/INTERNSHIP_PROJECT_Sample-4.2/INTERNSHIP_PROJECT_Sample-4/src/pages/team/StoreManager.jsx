@@ -119,7 +119,7 @@ export default function StoreManager() {
         description,
         tags: tagsArray,
         inStock,
-        bgColor: 'from-purple-900/40 to-indigo-800/20' // default premium background
+        bgColor: 'from-brand-900/40 to-indigo-800/20' // default premium background
       };
       addProduct(newProduct);
       showToast(`Added "${name}" to store catalog!`, 'success');
@@ -147,7 +147,7 @@ export default function StoreManager() {
       {/* Filters & Search */}
       <div className="flex flex-col md:flex-row gap-4">
         {/* Search */}
-        <div className="flex items-center gap-3 flex-1 bg-[#ffffff] border border-[#000000] rounded-[20px] px-5 py-3 focus-within:border-purple-500 hover:border-slate-800 transition-all duration-350">
+        <div className="flex items-center gap-3 flex-1 bg-[#ffffff] border border-[#000000] rounded-[20px] px-5 py-3 focus-within:border-brand-500 hover:border-slate-800 transition-all duration-350">
           <Search className="w-4.5 h-4.5 text-slate-500 flex-shrink-0" />
           <input
             value={search}
@@ -166,7 +166,7 @@ export default function StoreManager() {
               onClick={() => setActiveCategory(cat)}
               className={`px-4 py-2.5 rounded-[16px] text-xs font-semibold border whitespace-nowrap transition-all duration-200 ${
                 activeCategory === cat
-                  ? 'bg-brand-600 text-[#ffffff] border-purple-500/30 shadow-md'
+                  ? 'bg-brand-600 text-[#ffffff] border-brand-500/30 shadow-md'
                   : 'bg-[#ffffff] text-slate-600 border-[#000000] hover:text-slate-950 hover:bg-slate-50'
               }`}
             >
@@ -196,11 +196,11 @@ export default function StoreManager() {
                   <td className="p-5">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-2xl relative select-none">
-                        <div className="absolute w-8 h-8 rounded-full bg-purple-500/10 blur-sm pointer-events-none" />
+                        <div className="absolute w-8 h-8 rounded-full bg-brand-500/10 blur-sm pointer-events-none" />
                         <span className="z-10">{product.emoji || '🎁'}</span>
                       </div>
                       <div className="min-w-0">
-                        <h4 className="text-sm font-bold text-slate-900 group-hover:text-purple-600 transition-colors truncate">{product.name}</h4>
+                        <h4 className="text-sm font-bold text-slate-900 group-hover:text-brand-600 transition-colors truncate">{product.name}</h4>
                         <p className="text-xs text-slate-600 truncate mt-0.5 max-w-xs">{product.description}</p>
                         {(() => {
                           const ratings = (orderedItems || []).filter(item => item.productId === product.id && item.rating > 0).map(i => i.rating);
@@ -245,7 +245,7 @@ export default function StoreManager() {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => openEditModal(product)}
-                        className="w-8 h-8 rounded-lg flex items-center justify-center bg-slate-50 border border-slate-200 text-slate-600 hover:text-purple-600 hover:bg-purple-50 hover:border-purple-200 transition-all"
+                        className="w-8 h-8 rounded-lg flex items-center justify-center bg-slate-50 border border-slate-200 text-slate-600 hover:text-brand-600 hover:bg-brand-50 hover:border-brand-200 transition-all"
                         title="Edit Details"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
@@ -288,7 +288,7 @@ export default function StoreManager() {
                 value={emoji}
                 onChange={e => setEmoji(e.target.value)}
                 placeholder="🎁"
-                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-center text-2xl outline-none focus:border-purple-500/50 text-slate-800 placeholder-slate-450"
+                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-center text-2xl outline-none focus:border-brand-500/50 text-slate-800 placeholder-slate-450"
               />
             </div>
             <div className="col-span-2">
@@ -297,7 +297,7 @@ export default function StoreManager() {
                 value={name}
                 onChange={e => setName(e.target.value)}
                 placeholder="e.g. Leather Notebook Set"
-                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-purple-500/50"
+                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-brand-500/50"
               />
             </div>
           </div>
@@ -310,7 +310,7 @@ export default function StoreManager() {
                 value={price}
                 onChange={e => setPrice(e.target.value)}
                 placeholder="e.g. 1500"
-                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-purple-500/50"
+                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-brand-500/50"
               />
             </div>
             <div>
@@ -320,7 +320,7 @@ export default function StoreManager() {
                 value={minQty}
                 onChange={e => setMinQty(e.target.value)}
                 placeholder="e.g. 50"
-                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-purple-500/50"
+                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-brand-500/50"
               />
             </div>
           </div>
@@ -331,7 +331,7 @@ export default function StoreManager() {
               <select
                 value={category}
                 onChange={e => setCategory(e.target.value)}
-                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 outline-none focus:border-purple-500/50"
+                className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 outline-none focus:border-brand-500/50"
               >
                 {productCategories.filter(c => c !== 'All').map(cat => (
                   <option key={cat} value={cat} className="text-slate-800 bg-[#ffffff]">{cat}</option>
@@ -346,7 +346,7 @@ export default function StoreManager() {
                     type="radio"
                     checked={inStock}
                     onChange={() => setInStock(true)}
-                    className="accent-purple-500"
+                    className="accent-brand-500"
                   />
                   <span className="text-xs text-emerald-700 font-semibold">In Stock</span>
                 </label>
@@ -369,7 +369,7 @@ export default function StoreManager() {
               value={tagsInput}
               onChange={e => setTagsInput(e.target.value)}
               placeholder="Executive, Premium, Tech"
-              className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-purple-500/50"
+              className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-brand-500/50"
             />
           </div>
 
@@ -380,7 +380,7 @@ export default function StoreManager() {
               value={description}
               onChange={e => setDescription(e.target.value)}
               placeholder="Brief details about customization or design..."
-              className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-purple-500/50 resize-none"
+              className="w-full bg-[#ffffff] border border-[#000000] rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-450 outline-none focus:border-brand-500/50 resize-none"
             />
           </div>
 
