@@ -196,11 +196,11 @@ export function AppProvider({ children }) {
   
   // Notice proposal is mapped slightly depending on our backend schema
   const addProposal = useCallback(async (proposal) => {
-    try { const res = await api.post('/proposals', { client_name: proposal.customerName, client_email: proposal.customerEmail, client_company: proposal.companyName, client_type: 'CORPORATE', occasion: 'CORPORATE', budget_per_unit: proposal.budget || 0, quantity: proposal.quantity || 1, delivery_deadline: '2026-12-31' }); dispatch({ type: 'ADD_PROPOSAL', payload: res.data.data }); showToast('Proposal created'); } catch(e){ showToast('Error creating proposal', 'error'); }
+    try { const res = await api.post('/proposals', { client_name: proposal.customerName, client_email: proposal.customerEmail, client_company: proposal.companyName, client_type: 'CORPORATE', occasion: 'CORPORATE', budget_per_unit: proposal.budget || 0, quantity: proposal.quantity || 1, delivery_deadline: '2026-12-31' }); dispatch({ type: 'ADD_PROPOSAL', payload: res.data.data }); showToast('Proposal created'); return res.data.data; } catch(e){ showToast('Error creating proposal', 'error'); return null; }
   }, [showToast]);
   
   const addTicket = useCallback(async (ticket) => {
-    try { const res = await api.post('/tickets', ticket); dispatch({ type: 'ADD_TICKET', payload: res.data.data }); showToast('Ticket raised'); } catch(e){ showToast('Error raising ticket', 'error'); }
+    try { const res = await api.post('/tickets', ticket); dispatch({ type: 'ADD_TICKET', payload: res.data.data }); showToast('Ticket raised'); return res.data.data; } catch(e){ showToast('Error raising ticket', 'error'); return null; }
   }, [showToast]);
   const updateTicketStatus = useCallback(async (id, status, assignedTo) => {
     try { await api.patch(`/tickets/${id}/status`, { status, assignedTo }); dispatch({ type: 'UPDATE_TICKET_STATUS', payload: { id, status, assignedTo } }); } catch(e){}

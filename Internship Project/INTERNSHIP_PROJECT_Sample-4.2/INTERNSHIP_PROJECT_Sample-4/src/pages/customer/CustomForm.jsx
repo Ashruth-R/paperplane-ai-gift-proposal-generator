@@ -269,10 +269,13 @@ export default function CustomForm() {
   });
   const set = (k, v) => setForm(p => ({ ...p, [k]: v }));
 
-  const submit = () => {
+  const submit = async () => {
     setLoading(true);
-    setTimeout(() => {
-      const ticketId = `TKT-${Math.floor(1000 + Math.random() * 9000)}`;
+    
+    // Simulate slight loading delay for UX
+    await new Promise(r => setTimeout(r, 1500));
+
+    try {
       
       const orderDetails = {
         recipientName: form.recipientName || 'Unspecified Recipient',
@@ -289,8 +292,6 @@ export default function CustomForm() {
       const proposalId = `PRO-${Math.floor(1000 + Math.random() * 9000)}`;
 
       const newTicket = {
-        id: ticketId,
-        ticketId: ticketId,
         proposalId: proposalId,
         subject: `Custom Gift Order: ${form.occasion || 'General Gifting'} request for ${form.recipientName || 'Client'} (${form.company || 'Enterprise'})`,
         type: 'Custom Gift Order',
@@ -306,7 +307,10 @@ export default function CustomForm() {
         customerName: activeUser?.name
       };
 
-      addTicket(newTicket);
+      const realTicket = await addTicket(newTicket);
+      if (!realTicket) throw new Error("Failed to create ticket");
+      
+      const realTicketId = realTicket.id;
 
       const userName = activeUser?.name || 'Priya Sharma';
       const userCompany = activeUser?.company || 'TechNova Solutions';
@@ -315,7 +319,7 @@ export default function CustomForm() {
 
       const newProposal = {
         id: proposalId,
-        ticketId: ticketId,
+        ticketId: realTicketId,
         clientName: form.company || userCompany,
         clientType: form.industry || CLIENT_TYPES[0],
         contactPerson: form.recipientName || 'Unspecified Recipient',
@@ -337,12 +341,12 @@ export default function CustomForm() {
           { id: 1, actor: userName, action: 'Draft proposal created via Custom Form', timestamp: new Date().toISOString(), status: 'Draft' },
         ],
       };
-      addProposal(newProposal);
+      await addProposal(newProposal);
 
       addNotification({
         role: 'customer',
         type: 'message',
-        message: `Success: Your Custom Gift Form was submitted. Ticket ID: ${ticketId}.`,
+        message: `Success: Your Custom Gift Form was submitted. Ticket ID: ${realTicketId}.`,
         link: '/customer/enquiries',
         customerEmail: activeUser?.email
       });
@@ -350,7 +354,7 @@ export default function CustomForm() {
       addNotification({
         role: 'admin',
         type: 'message',
-        message: `New Enquiry: Received a new custom gift form submission from ${userName} (${ticketId}).`,
+        message: `New Enquiry: Received a new custom gift form submission from ${userName} (${realTicketId}).`,
         link: '/customer/enquiries'
       });
 
@@ -361,11 +365,14 @@ export default function CustomForm() {
         link: '/admin/proposals'
       });
 
-      setGeneratedTicketId(ticketId);
+      setGeneratedTicketId(realTicketId);
       setLoading(false);
       setDone(true);
-      showToast(`Success! Custom gift ticket ${ticketId} created.`, 'success');
-    }, 1500);
+      showToast(`Success! Custom gift ticket ${realTicketId} created.`, 'success');
+    } catch (e) {
+      setLoading(false);
+      showToast('Error submitting form', 'error');
+    }
   };
 
   const isStepValid = () => {

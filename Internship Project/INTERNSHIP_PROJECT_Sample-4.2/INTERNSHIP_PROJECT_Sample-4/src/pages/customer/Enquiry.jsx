@@ -129,18 +129,18 @@ export default function EnquiryPortal() {
     return null;
   };
 
-  const submitEnquiry = () => {
+  const submitEnquiry = async () => {
     if (!form.subject || !form.type || !form.description) {
       showToast('Please fill in all required fields.', 'error');
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      const randomHex = Math.random().toString(36).substring(2, 8).toUpperCase();
-      const newTicketId = `TKT-${randomHex}`;
+    
+    // Simulate slight loading delay for UX
+    await new Promise(r => setTimeout(r, 1500));
+    
+    try {
       const newTicket = {
-        id: newTicketId,
-        ticketId: newTicketId,
         subject: form.subject,
         type: form.type,
         priority: form.priority,
@@ -155,12 +155,18 @@ export default function EnquiryPortal() {
         companyName: activeUser?.company,
         customerName: activeUser?.name
       };
-      addTicket(newTicket);
+      
+      const realTicket = await addTicket(newTicket);
+      if (!realTicket) throw new Error("Failed to create ticket");
+
       setLoading(false);
       setNewModal(false);
       setForm({ subject: '', type: '', priority: 'Medium', description: '', attachOrder: '', contactPhone: '' });
-      showToast(`Ticket ${newTicket.id} created! Our team will respond within 2 business hours.`, 'success');
-    }, 1500);
+      showToast(`Ticket ${realTicket.id} created! Our team will respond within 2 business hours.`, 'success');
+    } catch (e) {
+      setLoading(false);
+      showToast('Error submitting enquiry', 'error');
+    }
   };
 
   const filtered = tickets.filter(t => {
