@@ -136,7 +136,8 @@ export default function EnquiryPortal() {
     }
     setLoading(true);
     setTimeout(() => {
-      const newTicketId = `TKT-${Math.floor(2900 + Math.random() * 1000)}`;
+      const randomHex = Math.random().toString(36).substring(2, 8).toUpperCase();
+      const newTicketId = `TKT-${randomHex}`;
       const newTicket = {
         id: newTicketId,
         ticketId: newTicketId,
