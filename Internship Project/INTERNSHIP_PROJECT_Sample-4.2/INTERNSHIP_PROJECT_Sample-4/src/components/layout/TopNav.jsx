@@ -45,16 +45,50 @@ const notifColors = {
 export default function TopNav({ onMenuClick }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { notifications, unreadCount, markRead, markAllRead, activeUser, signOut } = useApp();
-  const crumbs = getBreadcrumbs(location.pathname);
-
   const [notifOpen, setNotifOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [profileOpen, setProfileOpen] = useState(false);
+  const { notifications, unreadCount, markRead, markAllRead, activeUser, signOut, tickets, proposals, orders } = useApp();
+  const crumbs = getBreadcrumbs(location.pathname);
   const notifRef = useRef(null);
   const searchRef = useRef(null);
   const profileRef = useRef(null);
+
+  // Dynamic search results
+  const dynamicSearchResults = useMemo(() => {
+    const results = [...mockSearchResults];
+    const isCustomer = activeUser?.role === 'customer';
+    
+    // Add tickets
+    (tickets || []).forEach(t => {
+      results.push({
+        label: `Ticket: ${t.id} - ${t.subject}`,
+        path: isCustomer ? '/customer/enquiries' : '/admin/enquiries',
+        state: { searchTicketId: t.id }
+      });
+    });
+
+    // Add proposals
+    (proposals || []).forEach(p => {
+      results.push({
+        label: `Proposal: ${p.id} - ${p.clientName || p.customerName || 'Client'}`,
+        path: isCustomer ? '/customer/dashboard' : '/admin/proposals',
+        state: { searchProposalId: p.id }
+      });
+    });
+
+    // Add orders
+    (orders || []).forEach(o => {
+      results.push({
+        label: `Order: ${o.id} - ${o.customerName || 'Customer'}`,
+        path: isCustomer ? '/customer/dashboard' : '/admin/orders',
+        state: { searchOrderId: o.id }
+      });
+    });
+    
+    return results;
+  }, [tickets, proposals, orders, activeUser]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -67,7 +101,7 @@ export default function TopNav({ onMenuClick }) {
   }, []);
 
   const filtered = searchQuery
-    ? mockSearchResults.filter(r => r.label.toLowerCase().includes(searchQuery.toLowerCase()))
+    ? dynamicSearchResults.filter(r => r.label.toLowerCase().includes(searchQuery.toLowerCase()))
     : mockSearchResults;
 
   return (
@@ -123,7 +157,7 @@ export default function TopNav({ onMenuClick }) {
               {filtered.map((r, i) => (
                 <button
                   key={i}
-                  onClick={() => { navigate(r.path); setSearchOpen(false); setSearchQuery(''); }}
+                  onClick={() => { navigate(r.path, { state: r.state }); setSearchOpen(false); setSearchQuery(''); }}
                   className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-surface-200 hover:bg-surface-900 transition-colors text-left"
                 >
                   <ChevronRight className="w-3.5 h-3.5 text-surface-500" />

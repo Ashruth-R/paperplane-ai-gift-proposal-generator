@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import {
   MessageSquare, Plus, Clock, CheckCircle, XCircle, AlertCircle, Search,
   FileText, Send, Zap, X, User, Building, DollarSign, Layers,
@@ -35,11 +35,23 @@ const priorityConfig = {
 export default function EnquiryPortal() {
   const { showToast, tickets, addTicket, addTicketMessage, addNotification, proposals, orders, activeUser } = useApp();
   const navigate = useNavigate();
+  const location = useLocation();
   const [newModal, setNewModal] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(location.state?.searchTicketId || '');
   const [filterStatus, setFilterStatus] = useState('All');
   const [selectedTicket, setSelectedTicket] = useState(null);
+  
+  // Auto-select ticket from global search
+  React.useEffect(() => {
+    if (location.state?.searchTicketId && tickets.length > 0) {
+      const found = tickets.find(t => t.id === location.state.searchTicketId);
+      if (found) {
+        setSelectedTicket(found);
+      }
+    }
+  }, [location.state?.searchTicketId, tickets]);
+
   const activeTicket = selectedTicket ? tickets.find(t => t.id === selectedTicket.id) || selectedTicket : null;
   const [chatMessage, setChatMessage] = useState('');
   const chatEndRef = useRef(null);

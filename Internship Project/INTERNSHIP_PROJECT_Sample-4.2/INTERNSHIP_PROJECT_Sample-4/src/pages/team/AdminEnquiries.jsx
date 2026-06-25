@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { MessageSquare, Clock, CheckCircle, XCircle, Search, Filter, ChevronDown, User, Building2, Calendar, FileText, AlertTriangle, Send, ShieldAlert, Award, Inbox } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { formatDate, formatRelativeTime, formatCurrency } from '../../utils/formatters';
@@ -19,21 +20,34 @@ const PRIORITY_CFG = {
 const ALL_STATUSES = ['Open', 'In Progress', 'Resolved', 'Closed'];
 
 export default function AdminEnquiries() {
+  const location = useLocation();
   const { tickets, updateTicketStatus, addTicketMessage, showToast, addNotification } = useApp();
-  const [search, setSearch]         = useState('');
+  const [search, setSearch]         = useState(location.state?.searchTicketId || '');
   const [filterStatus, setFilter]   = useState('All');
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(location.state?.searchTicketId || null);
   const [assignedTo, setAssignedTo] = useState('');
   const [savingId, setSavingId]     = useState(null);
   const [chatMessage, setChatMessage] = useState('');
+  
+  useEffect(() => {
+    if (location.state?.searchTicketId && tickets && tickets.length > 0) {
+      const found = tickets.find(t => t.id === location.state.searchTicketId);
+      if (found) {
+        setSelectedId(found.id);
+        setAssignedTo(found.assignedTo || 'Unassigned');
+      }
+    }
+  }, [location.state?.searchTicketId, tickets]);
+
   const activeTicket = selectedId ? tickets.find(t => t.id === selectedId) || null : null;
 
   const filtered = (tickets || []).filter(t => {
+    const s = search.toLowerCase();
     const matchSearch = !search ||
-      t.id.toLowerCase().includes(search.toLowerCase()) ||
-      t.subject.toLowerCase().includes(search.toLowerCase()) ||
-      t.type.toLowerCase().includes(search.toLowerCase()) ||
-      (t.orderDetails?.company && t.orderDetails.company.toLowerCase().includes(search.toLowerCase()));
+      (t.id && t.id.toLowerCase().includes(s)) ||
+      (t.subject && t.subject.toLowerCase().includes(s)) ||
+      (t.type && t.type.toLowerCase().includes(s)) ||
+      (t.orderDetails?.company && t.orderDetails.company.toLowerCase().includes(s));
     const matchStatus = filterStatus === 'All' || t.status === filterStatus;
     return matchSearch && matchStatus;
   });
