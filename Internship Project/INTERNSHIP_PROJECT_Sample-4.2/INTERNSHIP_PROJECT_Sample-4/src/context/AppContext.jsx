@@ -196,7 +196,7 @@ export function AppProvider({ children }) {
   
   const addProposal = useCallback(async (proposal) => {
     try { 
-      const res = await api.post('/proposals', { 
+      const reqPayload = { 
         client_name: proposal.clientName || proposal.customerName || 'Unknown', 
         client_email: proposal.contactEmail || proposal.customerEmail || 'email@example.com', 
         client_company: proposal.clientName || proposal.companyName || 'Unknown', 
@@ -205,10 +205,20 @@ export function AppProvider({ children }) {
         budget_per_unit: (proposal.budget / (proposal.quantity || 1)) || 0, 
         quantity: proposal.quantity || 1, 
         delivery_deadline: '2026-12-31' 
-      }); 
-      dispatch({ type: 'ADD_PROPOSAL', payload: res.data.data }); 
+      };
+      const res = await api.post('/proposals', reqPayload); 
+      
+      const newFullProposal = {
+        id: res.data.data.proposal_id || res.data.data.id,
+        ...reqPayload,
+        status: res.data.data.status || 'Draft',
+        created_at: res.data.data.created_at || new Date().toISOString(),
+        priority: 'High'
+      };
+
+      dispatch({ type: 'ADD_PROPOSAL', payload: newFullProposal }); 
       showToast('Proposal created'); 
-      return res.data.data; 
+      return newFullProposal; 
     } catch(e) { 
       console.error(e);
       showToast('Error creating proposal', 'error'); 
