@@ -280,7 +280,7 @@ export default function AdminDash() {
       <Modal
         isOpen={showUsersModal}
         onClose={() => setShowUsersModal(false)}
-        title={`Active Users (${activeCustomers.length})`}
+        title="Active Users"
         size="md"
       >
         <div className="flex flex-col gap-3">
