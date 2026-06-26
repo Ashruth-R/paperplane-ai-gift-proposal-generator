@@ -223,6 +223,7 @@ export default function AdminDash() {
                 )}
               </tbody>
             </table>
+          </div>
         </div>
       </Modal>
 
