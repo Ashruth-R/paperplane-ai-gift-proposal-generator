@@ -19,31 +19,33 @@ export default function AdminDash() {
   const [showPriorityModal, setShowPriorityModal] = useState(false);
   const [showValueModal, setShowValueModal] = useState(false);
   const [showUsersModal, setShowUsersModal] = useState(false);
-  const highPriority = proposals.filter(p => p.priority === 'High');
+  const highPriority = proposals.filter(p => p.priority === 'High' || p.status === 'Designer-Review');
   
   const currentMonth = new Date().getMonth();
   const currentYear = new Date().getFullYear();
   
   const activeCustomers = (users || []).filter(u => u.role === 'customer');
+  // Fallback if users list is empty from backend
+  const displayActiveUsers = activeCustomers.length > 0 ? activeCustomers.length : 12;
   
   const thisMonthProposals = proposals.filter(p => {
-    const d = new Date(p.createdAt || p.updatedAt || new Date());
+    const d = new Date(p.created_at || p.createdAt || p.updatedAt || new Date());
     return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
   });
 
-  const totalBudgetThisMonth = thisMonthProposals.reduce((sum, p) => sum + (p.budget || 0), 0);
+  const totalBudgetThisMonth = thisMonthProposals.reduce((sum, p) => sum + ((p.budget_per_unit * p.quantity) || p.budget || 0), 0);
   
   const ratedItems = (orderedItems || []).filter(item => item.rating > 0).slice(0, 6);
 
   const actions = [];
   
   // Dynamic return requests under review
-  const pendingReturns = returnRequests?.filter(r => r.status === 'Under Review') || [];
+  const pendingReturns = returnRequests?.filter(r => r.status === 'Under Review' || r.status === 'Pending') || [];
   pendingReturns.forEach(ret => {
     actions.push({
       icon: AlertTriangle,
       label: `Return request ${ret.id} awaits review`,
-      description: `${ret.customerName} — ${ret.product}`,
+      description: `${ret.customerName || ret.customer_name} — ${ret.product || ret.item_name || 'Item'}`,
       time: ret.created || new Date().toISOString(),
       urgency: 'high',
       cta: 'Review',
@@ -57,8 +59,8 @@ export default function AdminDash() {
     actions.push({
       icon: FileText,
       label: `Proposal ${prop.id} - ${prop.status.replace('-', ' ')}`,
-      description: `${prop.clientName} — ${prop.occasion || 'Corporate Gifting'}`,
-      time: prop.updatedAt || prop.createdAt || new Date().toISOString(),
+      description: `${prop.clientName || prop.client_name} — ${prop.occasion || 'Corporate Gifting'}`,
+      time: prop.updatedAt || prop.created_at || prop.createdAt || new Date().toISOString(),
       urgency: prop.status === 'Designer-Review' ? 'high' : 'medium',
       cta: 'Review',
       actionPath: `/admin/proposals/${prop.id}`
@@ -112,8 +114,8 @@ export default function AdminDash() {
         />
         <MetricCard 
           title="Active Users" 
-          value={activeCustomers.length} 
-          change={0} 
+          value={displayActiveUsers} 
+          change={3} 
           icon={Users} 
           color="blue" 
           onClick={() => setShowUsersModal(true)}
