@@ -117,7 +117,10 @@ export function AppProvider({ children }) {
             api.get('/designs'),
             api.get('/notifications'),
             api.get('/auth/me'),
-            api.get('/auth/users')
+            api.get('/auth/users').catch(e => {
+              console.warn("Failed to fetch users, backend might not be updated yet:", e);
+              return { data: { data: [] } };
+            })
           ]);
           
           dispatch({ type: 'SET_DATA', payload: {
