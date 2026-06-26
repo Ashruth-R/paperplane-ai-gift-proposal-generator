@@ -194,9 +194,26 @@ export function AppProvider({ children }) {
     try { const res = await api.post('/designs', design); dispatch({ type: 'ADD_DESIGN', payload: res.data.data }); showToast('Design request submitted'); } catch(e){ showToast('Failed to submit design', 'error'); }
   }, [showToast]);
   
-  // Notice proposal is mapped slightly depending on our backend schema
   const addProposal = useCallback(async (proposal) => {
-    try { const res = await api.post('/proposals', { client_name: proposal.customerName, client_email: proposal.customerEmail, client_company: proposal.companyName, client_type: 'CORPORATE', occasion: 'CORPORATE', budget_per_unit: proposal.budget || 0, quantity: proposal.quantity || 1, delivery_deadline: '2026-12-31' }); dispatch({ type: 'ADD_PROPOSAL', payload: res.data.data }); showToast('Proposal created'); return res.data.data; } catch(e){ showToast('Error creating proposal', 'error'); return null; }
+    try { 
+      const res = await api.post('/proposals', { 
+        client_name: proposal.clientName || proposal.customerName || 'Unknown', 
+        client_email: proposal.contactEmail || proposal.customerEmail || 'email@example.com', 
+        client_company: proposal.clientName || proposal.companyName || 'Unknown', 
+        client_type: 'ENTERPRISE', 
+        occasion: 'CUSTOM', 
+        budget_per_unit: (proposal.budget / (proposal.quantity || 1)) || 0, 
+        quantity: proposal.quantity || 1, 
+        delivery_deadline: '2026-12-31' 
+      }); 
+      dispatch({ type: 'ADD_PROPOSAL', payload: res.data.data }); 
+      showToast('Proposal created'); 
+      return res.data.data; 
+    } catch(e) { 
+      console.error(e);
+      showToast('Error creating proposal', 'error'); 
+      return null; 
+    }
   }, [showToast]);
   
   const addTicket = useCallback(async (ticket) => {
