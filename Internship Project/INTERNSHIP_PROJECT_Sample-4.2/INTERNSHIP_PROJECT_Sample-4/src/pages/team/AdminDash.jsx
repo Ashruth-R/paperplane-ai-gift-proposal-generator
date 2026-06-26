@@ -21,6 +21,7 @@ export default function AdminDash() {
   const [showUsersModal, setShowUsersModal] = useState(false);
   const [usersSearchQuery, setUsersSearchQuery] = useState('');
   const [proposalsSearchQuery, setProposalsSearchQuery] = useState('');
+  const [highPrioritySearchQuery, setHighPrioritySearchQuery] = useState('');
   const highPriority = proposals.filter(p => p.priority === 'High' || p.status === 'Designer-Review');
   
   const currentMonth = new Date().getMonth();
@@ -234,9 +235,21 @@ export default function AdminDash() {
         title="High Priority Proposals"
         size="lg"
       >
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm border-collapse">
-            <thead>
+        <div className="flex flex-col gap-3">
+          <div className="relative mb-2">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400" />
+            <input 
+              type="text" 
+              placeholder="Search by ID or Client..." 
+              value={highPrioritySearchQuery}
+              onChange={(e) => setHighPrioritySearchQuery(e.target.value)}
+              className="w-full bg-surface-900 border border-surface-700 rounded-xl pl-9 pr-4 py-2 text-sm text-surface-100 placeholder:text-surface-500 focus:outline-none focus:border-brand-500 transition-colors"
+            />
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm border-collapse">
+              <thead>
               <tr className="border-b border-surface-700/60 text-surface-400 font-medium pb-2">
                 <th className="py-2 pr-4">ID</th>
                 <th className="py-2 pr-4">Client</th>
@@ -246,10 +259,18 @@ export default function AdminDash() {
                 <th className="py-2">Priority</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-surface-700/30 text-surface-200">
-              {highPriority.map(p => (
-                <tr key={p.id} className="hover:bg-surface-700/20 transition-colors">
-                  <td className="py-3 pr-4 font-mono text-brand-400 text-xs font-semibold">{p.id}</td>
+              <tbody className="divide-y divide-surface-700/30 text-surface-200">
+                {highPriority
+                  .filter(p => {
+                    const q = highPrioritySearchQuery.toLowerCase();
+                    return !q || 
+                           (p.id && String(p.id).toLowerCase().includes(q)) ||
+                           (p.clientName && p.clientName.toLowerCase().includes(q)) ||
+                           (p.client_name && p.client_name.toLowerCase().includes(q));
+                  })
+                  .map(p => (
+                  <tr key={p.id} className="hover:bg-surface-700/20 transition-colors">
+                    <td className="py-3 pr-4 font-mono text-brand-400 text-xs font-semibold">{p.id}</td>
                   <td className="py-3 pr-4 font-medium text-surface-100">{p.clientName || p.client_name}</td>
                   <td className="py-3 pr-4 text-xs text-surface-400">{p.occasion || 'General Gifting'}</td>
                   <td className="py-3 pr-4 font-semibold text-emerald-400">{formatCurrency(p.budget || (p.budget_per_unit * p.quantity) || 0)}</td>
@@ -267,7 +288,8 @@ export default function AdminDash() {
             </tbody>
           </table>
         </div>
-      </Modal>
+      </div>
+    </Modal>
 
       {/* Total Pipeline Value This Month Modal */}
       <Modal
