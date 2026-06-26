@@ -108,23 +108,25 @@ export function AppProvider({ children }) {
     if (state.isAuthenticated) {
       const fetchData = async () => {
         try {
+          const safeGet = (url, defaultData = []) => api.get(url).catch(e => {
+            console.warn(`Failed to fetch ${url}`, e);
+            return { data: { data: defaultData } };
+          });
+
           const [propRes, tickRes, ordRes, retRes, prodRes, desRes, notifRes, meRes, usersRes] = await Promise.all([
-            api.get('/proposals'),
-            api.get('/tickets'),
-            api.get('/orders'),
-            api.get('/returns'),
-            api.get('/products'),
-            api.get('/designs'),
-            api.get('/notifications'),
-            api.get('/auth/me'),
-            api.get('/auth/users').catch(e => {
-              console.warn("Failed to fetch users, backend might not be updated yet:", e);
-              return { data: { data: [] } };
-            })
+            safeGet('/proposals', { proposals: [] }),
+            safeGet('/tickets'),
+            safeGet('/orders'),
+            safeGet('/returns'),
+            safeGet('/products'),
+            safeGet('/designs'),
+            safeGet('/notifications'),
+            api.get('/auth/me'), // Keep auth/me strictly error-throwing if it fails, or maybe handle it?
+            safeGet('/auth/users')
           ]);
           
           dispatch({ type: 'SET_DATA', payload: {
-             proposals: propRes.data.data?.proposals || [],
+             proposals: propRes.data.data?.proposals || propRes.data.data || [],
              tickets: tickRes.data.data || [],
              orders: ordRes.data.data || [],
              returnRequests: retRes.data.data || [],
@@ -133,11 +135,11 @@ export function AppProvider({ children }) {
              notifications: notifRes.data.data || [],
              currentUser: meRes.data.data,
              activeUser: meRes.data.data,
-             activeRole: meRes.data.data.role,
+             activeRole: meRes.data.data?.role || 'customer',
              users: usersRes.data.data || []
           }});
         } catch (e) {
-          console.error('Failed to fetch data', e);
+          console.error('Failed to fetch critical data', e);
           if (e.response && e.response.status === 401) {
              signOut();
           }
