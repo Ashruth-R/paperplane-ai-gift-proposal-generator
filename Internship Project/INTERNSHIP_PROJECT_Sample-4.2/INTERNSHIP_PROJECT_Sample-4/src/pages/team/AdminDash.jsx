@@ -38,8 +38,6 @@ export default function AdminDash() {
   });
 
   const totalBudgetThisMonth = thisMonthProposals.reduce((sum, p) => sum + ((p.budget_per_unit * p.quantity) || p.budget || 0), 0);
-  
-  const ratedItems = (orderedItems || []).filter(item => item.rating > 0).slice(0, 6);
 
   // Removed actions variable and related loops since ActionList was removed
 
@@ -108,35 +106,6 @@ export default function AdminDash() {
         <PriorityQueue title="High Priority Proposals" items={highPriority} />
       </div>
 
-      {/* Customer Ratings */}
-      <div className="mt-2">
-        <h2 className="text-surface-100 font-semibold mb-3">Recent Customer Ratings</h2>
-        {ratedItems.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {ratedItems.map(item => (
-              <div key={item.id} className="bg-surface-800/50 border border-surface-700/50 p-4 rounded-2xl flex items-center gap-4 hover:border-surface-600 transition-colors">
-                <div className="w-12 h-12 rounded-xl bg-surface-900 border border-surface-700 flex items-center justify-center text-2xl shrink-0 shadow-inner">
-                  {item.emoji || '🎁'}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="text-sm font-bold text-surface-100 truncate">{item.name}</h4>
-                  <p className="text-[10px] text-surface-400 mt-0.5 uppercase tracking-wider">Ordered: {item.orderDate}</p>
-                  <div className="flex items-center gap-1 mt-2">
-                    {[1, 2, 3, 4, 5].map(star => (
-                      <Star key={star} className={`w-3.5 h-3.5 ${star <= item.rating ? 'text-amber-400 fill-amber-400' : 'text-surface-700'}`} />
-                    ))}
-                    <span className="text-[10px] font-bold text-amber-500 ml-1.5 px-1.5 py-0.5 bg-amber-500/10 rounded-md">{item.rating}/5</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="bg-surface-800/30 border border-surface-700/30 p-8 rounded-2xl text-center">
-            <p className="text-surface-400 text-sm font-medium">No customer ratings recorded yet.</p>
-          </div>
-        )}
-      </div>
 
       {/* Total Proposals Modal */}
       <Modal
