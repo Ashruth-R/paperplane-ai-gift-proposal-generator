@@ -125,8 +125,11 @@ export function AppProvider({ children }) {
             safeGet('/auth/users')
           ]);
           
+          const fetchedProposals = propRes.data.data?.proposals || propRes.data.data || [];
+          const offlineProposals = JSON.parse(localStorage.getItem('offline_proposals') || '[]');
+          
           dispatch({ type: 'SET_DATA', payload: {
-             proposals: propRes.data.data?.proposals || propRes.data.data || [],
+             proposals: [...fetchedProposals, ...offlineProposals],
              tickets: tickRes.data.data || [],
              orders: ordRes.data.data || [],
              returnRequests: retRes.data.data || [],
@@ -236,6 +239,10 @@ export function AppProvider({ children }) {
         created_at: new Date().toISOString(),
         priority: 'High'
       };
+      
+      const savedOffline = JSON.parse(localStorage.getItem('offline_proposals') || '[]');
+      localStorage.setItem('offline_proposals', JSON.stringify([mockFullProposal, ...savedOffline]));
+      
       dispatch({ type: 'ADD_PROPOSAL', payload: mockFullProposal });
       showToast('Proposal generated (Offline Mode)'); 
       return mockFullProposal; 

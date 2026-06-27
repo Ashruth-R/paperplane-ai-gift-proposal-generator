@@ -18,6 +18,9 @@ class ReturnRequest(db.Model):
     
     admin_note = db.Column(db.Text, nullable=True)
     resolution_note = db.Column(db.Text, nullable=True)
+    photo_data = db.Column(db.Text, nullable=True) # Base64 encoded image
+    description = db.Column(db.Text, nullable=True)
+    preferred_resolution = db.Column(db.String(100), nullable=True)
     
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -34,6 +37,9 @@ class ReturnRequest(db.Model):
             'status': self.status,
             'adminNote': self.admin_note,
             'resolutionNote': self.resolution_note,
+            'photoData': self.photo_data,
+            'description': self.description,
+            'preferredResolution': self.preferred_resolution,
             'date': self.created_at.strftime('%Y-%m-%dT%H:%M:%SZ'),
             'updated': self.updated_at.strftime('%Y-%m-%dT%H:%M:%SZ')
         }

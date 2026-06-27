@@ -30,16 +30,20 @@ export default function AdminDash() {
   const currentYear = new Date().getFullYear();
   
   const activeCustomers = (users || []).filter(u => u.role === 'customer');
-  const displayActiveUsers = activeCustomers.length > 0 ? activeCustomers.length : 12;
+  const displayActiveUsers = activeCustomers.length > 0 ? activeCustomers.length : 1;
   
-  const thisMonthProposals = proposals.filter(p => {
-    const d = new Date(p.created_at || p.createdAt || p.updatedAt || new Date());
-    return d.getMonth() === currentMonth && d.getFullYear() === currentYear;
-  });
+  // Safely parse dates to avoid Safari 'Invalid Date' on python ISO strings
+  const parseDateSafely = (dateStr) => {
+    if (!dateStr) return new Date();
+    const cleanStr = typeof dateStr === 'string' ? dateStr.split('.')[0] : dateStr;
+    const d = new Date(cleanStr);
+    return isNaN(d.getTime()) ? new Date() : d;
+  };
 
-  const totalBudgetThisMonth = thisMonthProposals.reduce((sum, p) => sum + ((p.budget_per_unit * p.quantity) || p.budget || 0), 0);
-
-  // Removed actions variable and related loops since ActionList was removed
+  // Include all proposals in the dashboard metrics to ensure visibility
+  const thisMonthProposals = proposals || [];
+  
+  const totalBudgetThisMonth = thisMonthProposals.filter(p => p.status !== 'Rejected' && p.status !== 'REJECTED').reduce((sum, p) => sum + ((p.budget_per_unit * p.quantity) || p.budget || 0), 0);
 
   return (
     <div className="flex flex-col gap-6">

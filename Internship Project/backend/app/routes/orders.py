@@ -73,6 +73,9 @@ def create_return():
         company_name=user.company if user else '',
         item_name=data.get('itemName', ''),
         reason=data.get('reason', ''),
+        photo_data=data.get('photoData', None),
+        description=data.get('description', None),
+        preferred_resolution=data.get('preferredResolution', None),
         status='Pending'
     )
     db.session.add(req)
