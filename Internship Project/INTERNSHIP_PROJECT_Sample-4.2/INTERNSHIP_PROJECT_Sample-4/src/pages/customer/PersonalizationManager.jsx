@@ -19,6 +19,7 @@ export default function PersonalizationManager() {
   const [selectedProduct, setSelectedProduct] = useState(MOCK_PRODUCTS[0]);
   const [logoUploaded, setLogoUploaded] = useState(false);
   const [logoName, setLogoName] = useState('');
+  const [logoDataUrl, setLogoDataUrl] = useState('');
   const [primaryColor, setPrimaryColor] = useState('#4f46e5');
   const [accentColor, setAccentColor] = useState('#10b981');
   const [customText, setCustomText] = useState('Your Brand Name');
@@ -47,10 +48,15 @@ export default function PersonalizationManager() {
   const handleLogoUpload = (e) => {
     const f = e.target.files?.[0];
     if (f) { 
-      setLogoName(f.name); 
-      setLogoUploaded(true); 
-      setShowLogoOnProduct(true); 
-      showToast('Logo uploaded and applied to mockup!', 'success'); 
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setLogoDataUrl(reader.result);
+        setLogoName(f.name); 
+        setLogoUploaded(true); 
+        setShowLogoOnProduct(true); 
+        showToast('Logo uploaded and applied to mockup!', 'success'); 
+      };
+      reader.readAsDataURL(f);
     }
   };
 
@@ -101,7 +107,8 @@ export default function PersonalizationManager() {
         logoPosition,
         logoSize,
         logoRotation,
-        previewBackground
+        previewBackground,
+        logoUrl: logoDataUrl
       };
 
       addDesign(newDesign);
@@ -138,6 +145,7 @@ export default function PersonalizationManager() {
     setTextPosition('Bottom'); 
     setShowLogoOnProduct(false); 
     setSaved(false);
+    setLogoDataUrl('');
     
     // Reset Custom Studio States
     setSecondaryColor('#f59e0b'); 

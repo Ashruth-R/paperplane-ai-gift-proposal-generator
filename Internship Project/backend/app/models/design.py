@@ -16,7 +16,7 @@ class PersonalizedDesign(db.Model):
     
     custom_text = db.Column(db.Text, nullable=True)
     color = db.Column(db.String(50), nullable=True)
-    logo_url = db.Column(db.String(255), nullable=True)
+    logo_url = db.Column(db.Text, nullable=True)
     notes = db.Column(db.Text, nullable=True)
     
     status = db.Column(db.String(50), nullable=False, default='Pending') # Pending, Approved, Rejected

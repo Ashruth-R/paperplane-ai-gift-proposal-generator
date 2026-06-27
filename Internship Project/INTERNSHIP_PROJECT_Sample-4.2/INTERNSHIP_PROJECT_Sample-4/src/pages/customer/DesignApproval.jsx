@@ -270,9 +270,13 @@ export default function DesignApproval() {
                           design.logoPosition === 'Top' ? 'order-first mb-1' : design.logoPosition === 'Center' ? '' : 'order-last mt-1'
                         }`}
                       >
-                        <span className="text-white text-[7px] font-black tracking-tight text-center leading-none select-none uppercase">
-                          {design.logoName ? design.logoName.replace(/\.[^/.]+$/, '').slice(0, 8) : 'LOGO'}
-                        </span>
+                        {design.logoUrl ? (
+                          <img src={design.logoUrl} alt="Uploaded Logo" className="w-full h-full object-contain rounded-md" />
+                        ) : (
+                          <span className="text-white text-[7px] font-black tracking-tight text-center leading-none select-none uppercase">
+                            {design.logoName ? design.logoName.replace(/\.[^/.]+$/, '').slice(0, 8) : 'LOGO'}
+                          </span>
+                        )}
                       </div>
                     )}
 
@@ -338,6 +342,14 @@ export default function DesignApproval() {
                     <span>{statusCfg.label}</span>
                   </span>
                 </div>
+
+                {/* Uploaded Picture Information */}
+                {design.logoUrl && activeRole === 'admin' && (
+                  <div className="flex flex-col gap-2 mt-2 border p-2 rounded-lg bg-slate-50">
+                    <span className="text-xs font-bold text-slate-700">Uploaded Customer Design Picture:</span>
+                    <img src={design.logoUrl} alt="Customer Upload" className="max-h-40 object-contain rounded border border-slate-200 bg-white" />
+                  </div>
+                )}
 
                 {/* Submission date metadata */}
                 <div className="flex items-center gap-1.5 text-slate-500 text-xs">
